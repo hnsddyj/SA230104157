@@ -1,0 +1,17 @@
+Package: SA230104157
+Type: Package
+Title: About sure independent screening methods
+Version: 0.1.0
+Author: Ding Jing Qi
+Maintainer: Ding Jing Qi <78865699@qq.com>
+Description: About sure independent screening methods.
+License: GPL(>=2)
+Encoding: UTF-8
+Imports: MASS,glmnet,ncvreg,Rcpp
+LinkingTo: Rcpp
+RoxygenNote: 7.2.3
+LazyData: true
+Suggests:knitr,rmarkdown
+VignetteBuilder:knitr
+URL: http://github.com/hnsddyj/SA2301041578
+BugReports: http://github.com/hnsddyj/SA2301041578/issues
