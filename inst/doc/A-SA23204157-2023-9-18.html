@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="丁婧琦" />
+
+
+<title>Homework-2023.09.18</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2023.09.18</h1>
+<h4 class="author">丁婧琦</h4>
+<h4 class="date">2023-9-18</h4>
+
+
+
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p><br />
+<strong>3.2:The standard Laplace distribution has density <span class="math inline">\(f(x) = 12*\exp−|x|, x\in R\)</span>. Use the
+inverse transform method to generate a random sample of size 1000 from
+this distribution. Use one of the methods shown in this chapter to
+compare the generated sample to the target distribution.</strong><br />
+## Answer<br />
+1. Derive the inverse function <span class="math inline">\(F_x^{-1}(u)\)</span>.<br />
+2. Write a command or function to compute <span class="math inline">\(F_x^{-1}(u)\)</span>.<br />
+3. For each random variate required:<br />
+(a) Generate a random u from Uniform(0,1). (b) Deliver x = <span class="math inline">\(F_x^{-1}(u)\)</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#使用逆变换方法从该分布生成大小为1000的随机样本</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>u <span class="ot">&lt;-</span><span class="fu">runif</span>(n)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">log</span>(<span class="dv">12</span><span class="sc">/</span>u))</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##    [1] 2.814423 3.080210 2.635584 2.668449 2.593600 3.822340 2.873480 3.899125
+##    [9] 2.684701 3.655006 3.551280 3.177994 4.004621 4.291926 2.637324 5.043506
+##   [17] 2.514911 2.625209 2.856153 3.110912 2.687450 3.021776 3.650720 2.491138
+##   [25] 3.487181 2.820354 2.693010 2.649512 5.252125 4.007558 3.625053 2.575882
+##   [33] 3.969092 4.721206 2.510534 3.463086 2.828524 2.612743 4.073822 3.279404
+##   [41] 2.600496 3.358868 3.089460 3.370052 2.703192 5.778674 5.047181 2.612086
+##   [49] 3.326675 3.125061 3.288712 4.617888 4.438926 2.660663 4.957111 2.568469
+##   [57] 4.911089 3.114943 3.219071 4.093992 2.632983 2.713355 3.978700 2.669226
+##   [65] 5.239336 2.723083 3.005274 6.295486 4.548669 2.519000 3.195881 3.135967
+##   [73] 2.956461 2.742557 2.631807 2.799423 3.467124 3.001780 5.348363 3.112242
+##   [81] 3.224085 3.698166 2.737387 3.602809 5.572481 2.870880 4.331259 3.458697
+##   [89] 2.787129 3.889403 2.709235 2.809077 4.135031 2.769776 2.746767 3.038707
+##   [97] 2.675948 2.546341 3.096273 3.166191 3.993647 3.060176 2.888442 2.696420
+##  [105] 2.949449 2.534301 3.008254 4.116397 2.995864 3.322586 3.105077 3.570454
+##  [113] 2.821935 4.582151 3.845206 3.781976 3.330313 2.957942 4.131913 2.536000
+##  [121] 5.249591 3.163007 2.876278 4.906077 3.223921 3.534297 2.683757 3.622490
+##  [129] 2.670264 5.038166 2.652464 2.839216 3.461598 3.144378 2.648688 4.410276
+##  [137] 3.600938 4.320630 3.580101 3.229850 2.807620 2.858166 2.509276 2.833282
+##  [145] 4.454588 4.882870 5.622675 2.873697 3.020652 2.817528 2.635357 3.588054
+##  [153] 4.633586 4.640039 3.098793 3.661909 2.719662 2.487467 3.454581 3.056984
+##  [161] 3.369528 4.834396 3.490812 3.236420 3.889529 2.871689 3.245409 2.980722
+##  [169] 2.765409 2.654568 3.635431 2.520697 3.247725 2.862958 2.546959 2.829970
+##  [177] 2.697459 2.728595 2.546486 3.639993 3.452244 3.377559 2.705386 3.647874
+##  [185] 3.999778 2.708208 3.017026 3.960215 3.360167 5.020801 3.182172 5.345587
+##  [193] 5.485715 3.087646 3.762298 2.911654 2.666151 3.118274 2.534064 3.283501
+##  [201] 3.222051 4.006436 3.244081 3.041727 2.881985 2.622540 2.873279 3.159827
+##  [209] 3.177351 3.321238 3.203024 3.328541 4.471150 3.118934 3.130500 4.979335
+##  [217] 2.767550 3.635094 4.329636 2.492164 2.818317 4.165125 2.837174 3.024283
+##  [225] 3.429165 2.732917 3.259414 3.873617 3.719976 2.707387 3.407334 2.695204
+##  [233] 2.986087 3.587811 2.608717 4.235333 2.623962 2.771713 2.772377 2.602977
+##  [241] 3.659286 2.595833 7.020311 4.533391 2.850546 2.832040 2.891650 2.600257
+##  [249] 3.404976 3.989515 2.678027 3.490515 4.418661 3.938006 3.396375 3.293771
+##  [257] 3.580129 2.925462 2.898460 2.837317 2.595198 5.339868 5.914707 3.348781
+##  [265] 3.332341 6.008725 2.500375 2.964295 2.558451 2.641633 2.527782 8.382886
+##  [273] 3.425558 2.518676 3.606731 4.924639 3.485460 2.789726 3.337981 3.282471
+##  [281] 3.967980 2.929140 3.004464 3.282804 3.098338 3.210918 3.143411 4.012567
+##  [289] 2.536885 5.700398 4.975942 2.704158 2.720671 3.503384 3.358324 2.978423
+##  [297] 2.719526 3.633432 3.979439 2.578277 2.767676 2.953886 2.812421 3.981387
+##  [305] 2.511842 2.874188 4.232359 2.583314 3.297719 4.101245 3.445974 3.180620
+##  [313] 3.912986 2.731828 4.410232 2.777806 6.024633 4.296735 3.290212 2.524008
+##  [321] 6.270059 2.690004 5.410468 3.804977 3.084543 5.122611 4.277789 4.199200
+##  [329] 4.126770 2.886300 2.773499 2.660741 4.573724 4.374208 2.576868 3.039909
+##  [337] 3.085636 3.792923 3.238467 3.034188 2.594860 2.516926 3.650494 3.362207
+##  [345] 2.925234 2.521408 3.262076 3.567667 2.651826 2.556065 4.071075 3.914293
+##  [353] 2.762283 2.679791 3.719471 2.760774 2.969455 2.595238 4.164813 5.160012
+##  [361] 3.579523 3.980228 3.073096 3.774152 2.505617 3.562788 4.710694 2.968492
+##  [369] 2.774124 2.734003 3.134409 4.023403 3.011110 4.151924 3.363987 6.451481
+##  [377] 3.160679 2.690374 2.531122 2.487026 2.732366 4.499245 2.923609 2.857913
+##  [385] 3.260274 3.169530 4.074989 2.527818 3.050141 2.712738 2.820620 2.494456
+##  [393] 3.192864 3.551503 3.179163 2.622053 3.794783 2.944238 2.639838 4.976931
+##  [401] 2.798654 2.674259 2.703223 3.305831 4.702875 2.780823 3.925412 4.360250
+##  [409] 5.470322 2.654402 2.727689 3.140534 2.501830 4.717090 2.514655 3.152390
+##  [417] 5.581599 3.141637 3.316471 3.846745 5.104904 2.727854 4.183498 2.758545
+##  [425] 3.413317 4.985553 2.931879 2.679999 2.721925 3.031560 3.184581 3.444388
+##  [433] 2.865981 2.778512 2.825058 3.413246 3.364195 3.162835 3.704788 3.464412
+##  [441] 5.150589 3.859336 4.289460 2.573498 2.535854 2.555731 3.124937 3.758194
+##  [449] 4.254560 3.223371 4.584991 2.963883 2.897584 4.697925 3.184289 2.733189
+##  [457] 4.111463 3.116181 2.663226 3.261147 2.793805 4.074898 3.958324 2.552943
+##  [465] 2.967986 3.192664 2.496994 2.646168 2.686159 3.617670 2.993152 2.996013
+##  [473] 2.495293 2.496633 4.323618 2.653572 3.195528 2.543004 4.095379 2.741330
+##  [481] 2.905528 4.802892 3.184019 2.498877 3.278142 4.798416 7.329633 2.987407
+##  [489] 3.451830 2.854592 3.050432 2.501610 3.171563 3.439998 2.750886 4.047877
+##  [497] 2.917000 2.801363 3.556906 3.112131 2.749486 3.584681 5.498397 2.637264
+##  [505] 3.810232 3.462270 2.955847 2.517851 3.789531 4.643477 3.294105 3.428359
+##  [513] 2.788612 3.570161 3.014940 2.888789 2.818299 3.009628 3.058550 2.800743
+##  [521] 3.619705 2.544529 3.859289 3.340966 2.841072 5.446215 4.187557 3.115696
+##  [529] 2.770418 3.070440 3.090387 3.200149 3.754099 2.511295 4.335760 2.635743
+##  [537] 2.912254 2.543406 2.660684 3.883125 4.599662 2.701423 3.134917 2.600177
+##  [545] 2.727681 3.184693 4.267016 2.593329 3.349831 3.787678 3.640840 2.774330
+##  [553] 5.984255 3.062813 2.645011 2.950641 2.801191 3.397727 2.617578 2.685542
+##  [561] 4.070107 4.276898 3.498176 5.010191 4.634828 4.172031 3.469909 2.611005
+##  [569] 3.907691 3.190732 2.719384 4.656890 2.964327 5.596381 2.577640 2.636969
+##  [577] 2.948779 4.560705 3.125969 2.986591 2.725096 2.505890 2.713376 3.251891
+##  [585] 4.436264 4.533471 4.105966 3.249539 4.666815 3.017428 2.496830 3.813215
+##  [593] 2.908092 2.997341 4.158621 3.101966 2.966661 3.262983 2.772631 2.530223
+##  [601] 3.183815 3.239673 2.624876 2.519075 2.883531 3.136784 2.826081 2.698816
+##  [609] 2.659814 3.163471 2.803089 3.077596 5.356702 2.676882 4.925447 5.574251
+##  [617] 3.143302 2.604165 2.524012 3.221141 3.645561 3.337646 8.032574 2.514508
+##  [625] 3.125976 7.440558 5.146422 3.547507 2.765939 3.221802 4.178313 2.715914
+##  [633] 2.954872 2.654056 3.501109 4.871917 4.471869 2.879129 2.596422 2.777236
+##  [641] 5.520014 4.425840 2.925786 2.609658 3.781756 3.736784 5.515345 3.038389
+##  [649] 3.093849 3.836348 3.152537 3.942884 2.572209 2.577900 2.974458 3.720393
+##  [657] 2.673694 3.076129 2.507238 5.783918 2.547517 3.418066 2.855260 5.798709
+##  [665] 3.492701 2.642089 2.590325 3.107076 2.941693 3.133601 3.598994 3.375438
+##  [673] 3.287383 3.333570 2.497513 2.505468 3.061650 6.447117 5.335546 2.708920
+##  [681] 2.659014 2.529549 4.770770 3.597133 3.442213 2.798367 2.508177 4.541999
+##  [689] 2.940014 2.739430 3.182758 2.992756 3.976748 2.797609 3.749250 2.873406
+##  [697] 3.823074 2.543607 3.234211 2.611028 3.348128 2.546024 4.430522 2.707825
+##  [705] 2.579677 2.489527 2.834735 3.311588 4.597208 3.048987 4.682089 3.379432
+##  [713] 3.270430 3.643262 3.301148 3.058220 2.903164 3.495744 2.506055 3.399926
+##  [721] 2.532781 3.274873 3.784635 3.079591 3.740703 3.315326 2.994183 3.447270
+##  [729] 4.182928 3.508121 4.089273 2.792396 2.933757 2.638806 4.466770 3.761397
+##  [737] 3.759823 2.789568 3.176429 2.622623 4.458208 2.603937 4.276333 2.869805
+##  [745] 5.137927 3.285003 3.423566 2.777483 3.611815 4.468300 2.642489 4.063925
+##  [753] 2.511154 2.719108 3.269297 2.601192 7.241569 3.115674 2.655026 3.742111
+##  [761] 5.323681 2.612490 3.157405 2.811269 3.007472 3.222311 2.870844 2.804040
+##  [769] 2.916891 2.643026 2.926358 2.522974 2.586506 3.152966 2.720112 2.504756
+##  [777] 2.520725 4.035310 3.250006 3.195043 3.438805 5.233879 3.212806 3.815226
+##  [785] 3.347535 3.155682 2.783903 2.836900 2.856091 2.968367 2.972901 4.115314
+##  [793] 3.714237 3.265491 6.289334 2.911146 2.989557 4.063702 2.750919 3.574468
+##  [801] 2.977923 2.533915 3.400897 4.382956 2.823802 3.483227 3.131495 3.840544
+##  [809] 3.328484 2.494963 2.639601 5.170060 3.794548 5.508919 3.009439 3.336451
+##  [817] 2.577680 2.972256 2.554241 3.297163 3.478400 6.041755 2.491424 3.229722
+##  [825] 2.899481 3.373775 4.617816 3.391743 2.623817 2.806264 2.530856 4.033019
+##  [833] 2.644073 3.005482 3.057992 2.606132 2.955434 4.003333 4.320638 2.899674
+##  [841] 4.990055 2.883637 4.314045 3.990058 3.982063 3.456401 2.601896 2.784272
+##  [849] 2.897296 3.102082 3.688080 4.068866 3.127631 2.712399 3.225447 2.758307
+##  [857] 3.361007 4.036276 3.051670 2.557669 4.519537 2.642311 3.420370 3.313297
+##  [865] 3.152869 4.418326 2.742158 2.723142 3.006263 2.584872 2.709573 3.761015
+##  [873] 2.540952 2.780917 2.961422 3.607517 3.309728 2.561361 2.507571 4.025414
+##  [881] 2.611348 3.077637 2.996883 2.620155 3.894923 4.365684 2.822178 4.166812
+##  [889] 2.769092 3.626348 3.648023 3.246797 2.687117 5.914167 5.521946 4.042044
+##  [897] 2.600917 4.921066 4.388957 3.181439 2.854931 3.382402 3.158886 4.406102
+##  [905] 3.053646 2.809395 4.255870 2.942160 3.737386 3.342156 3.320991 3.223203
+##  [913] 2.603062 5.446967 2.968373 2.820491 3.525676 3.204332 3.202457 3.604345
+##  [921] 2.723043 5.335151 2.751194 2.796964 3.092349 4.046157 2.494771 3.425640
+##  [929] 2.805424 2.982269 4.013854 2.904559 2.501718 3.353974 4.742485 3.499910
+##  [937] 3.503581 2.533621 2.727208 5.802457 3.650714 2.714421 4.073270 3.132111
+##  [945] 2.614232 3.327463 3.328931 3.179654 2.743437 2.911455 4.465592 3.175576
+##  [953] 5.282138 3.221579 2.500505 3.791173 3.122946 2.899180 5.056213 2.643842
+##  [961] 3.009441 2.635401 2.641333 3.691993 4.773941 3.518489 3.608108 3.754781
+##  [969] 4.177856 4.032946 3.195825 2.614557 3.448015 6.007840 3.857727 3.247574
+##  [977] 2.979809 4.682293 3.376932 2.639325 4.954197 3.213153 2.552844 3.938971
+##  [985] 3.220948 3.649606 5.136988 3.585225 4.341103 3.149847 2.489409 2.977904
+##  [993] 3.132520 3.116159 4.379082 4.439710 2.520250 3.439314 2.517442 4.995473</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#样本与目标分布进行比较</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">f</span>(x)<span class="sc">==</span><span class="dv">12</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fu">abs</span>(x))), <span class="at">xlab =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="fl">0.01</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">lines</span>(y,<span class="dv">12</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fu">abs</span>(y)))</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAtFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6ADo6AGY6OgA6Ojo6OmY6ZpA6ZrY6kLY6kNtmAABmADpmOgBmOjpmOmZmZgBmZmZmkLZmkNtmtrZmtttmtv+QOgCQOjqQZgCQZjqQkGaQkLaQttuQtv+Q2/+2ZgC2Zjq2kGa2kJC225C227a22/+2/7a2/9u2///T09PbkDrbtmbbtpDb////tmb/tpD/25D/27b//7b//9v////Q4fRLAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAKjklEQVR4nO2dfWOrthnFlezGXrt2je/atd2StnsJ7bq7NXShvra///caQggESByBAAt8zh+xI+NH0s96RY+EuFC9EtdOQOwiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICWgjQ+V//rN7/9s3brPbbCotvGUAfv/pg/Hf86pdZ7bcVFN+8gE5/EuIpf/nypRF8/KQnxafDU/H68Ush7v7o9eO37bfVGx/QvICSPI8vl/PzYys8fXBmPGdaADruhdQ7j6x17bfVEx/SrIDOz/cyf+ld+wc+7l1Z+t++KHP5V8Vf81L0LFDerfbNfIne+KBmBiR/udOh8/uV5Lpf+E68+1sB6HTYXeqXXlnstwG54vPQnIAyWUd2+ctO/SdfElWBype2Tu+/ecvMjxSgjz/kVVX2RbWN5P6/Pwrx2YfKcEuiulT0xOehBQAlZTWRidSZSW2Z0t96Mv95rJojzaawkdz/WYbJypXYqqGoLhUgPqD5q1jemqgcnw73/z6URT0TzmbTBHTcy8sS8UVu5seiP9Q2EnH3Dxm2q+03JKpLBYgPaH5Ap4POQCo+1W8zoUglolT9AxuAjntZQo77nTK2M2wkRcMs25bavilRXSrM+IZrSUD5b6059CS4BpSKd7KNKWuYKAqBtpGo7+cdmBNQeemKAOXvdDI9AOX5U9WiAiS/om10ATULo6gujR5Q3UYk4mtdhHSb4K5i52oI1BjEaBt1FXO1QfrS6NugqpfJih5NZQb3YnXHfH6++zY386tsiiobiax+RSPt6sX0pdH3YrprP8kuRXVLMsHOcYkCZNar8n1eZmobyd2nutbZx0HVpQLEB7TcSFoVibT4uftGtgpQJoyGRw4UxecfTBv5QDEP/Fwato+kq0sjHklrDZmL+Soxcmybi00W3xKA1AjGVMDsupQJqGu/rVhn81qd+0GfBd8xMwHh+0EB8S1zR/H8nZmD/vt/fmoAatlvKyi+pe5J/2Tck/77DPekf+q5Jx0UH1c1gAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIaBigRIjd+VmI0Qu569MgQHL9LZEr4adD6MroajQEUOGPnBXrvOFLo2vREECFD3xWrNhlo50B1iaWIKBxbRB2/t+M2IsBLTMOWvFoi4CARiY9HdaL3R6gtpVKs0ZzDU2ccos5YWra2JbQAoBecxV/8pdpY1tCw5JcdPGlb66vuVsClGqf9sy1U9IFqCS0cUDG+Nk11bhtQHrD9sU9Wb1tQCxBSGm9YZBtkFWnQ733z9ec7sBuAtAYcwQEzBEQMKcBCQKymysBvRKQwxwBAXMEBMxpQJIQARHQcHMEBMwREDBXAcoJERABDTdHQMBcDeiVqxoENMIcAV36V1YNQKtug06H0WcQ2cwZQRsBJO84C5+DQX3NVUGbAXSZgBECtD5C7RSnfQvLw81dtgUoK5zr1MFaE5grg7YCSC7pKDIBPr4bBnQ6wJPAhpgzghqN9OoI1YDeKz5hLuKwBK3OmaoDaKD3ocucEWQCejWmrgHRLKgymUn9w87azb/WhNYFqC5BE5kzgjYCaDZzbUCCgFpBTUCvqwR0Ojxqz5aQcfR2Ac1prg1oZR6vY5J53Ds3+2wZkNyHmvY4j9X+ZT0V0QvQqtzx6mQmD2/y+QNJz22z0jUxsASty1/RmIs9FWdd90411NnWtwtIHrELphrysP1QQKtyxzOq2E6WD/i0oVQ83iigvAm+e8GHe+fl53e3Cchb9gdZOM1ZAK3J2+wKA8W1AoJ7wUy5mnJPQCvyFTIa6ZDFDN+V1RUDmuZAF19A63GFaYyDJjRnBG0EkEcHH7BntQNoNStAdTIzfCBHwJ7V9QPyuGEWsuOwA2h1VcxDIXtWbwLQxCVoHYSMVOaV7OEt6evsA/asbgBQdveSytl8H6GAPauWKrYKQkY3/1hUnJmXntcLSLbAEtC8zgvNRnoNhDolKAk6324goBUQardB4x8n2TJXB/V086sCpFrgQC+qoYDiJ3SdG2Ya0AoIXRlQ/JWsNRcLPYF0OKDYCen0lY9WTgN97YfPxWInVCYv041zz5rXAHONoH5AsVcylTzjblnf2ryvuWaQC9A6PF4rByodsNxUoyYV860PDQje6RlirhmEAL2uogRdE1DUdz6iAMQqBgHFS0gDgs51/VaGrqx2AEVL6IpTjUYVi5ZQLICiJRQJoHgHjZEAUpR0aYpJEQEqCRGQ+32MZy1GBShGx6rIAMU3IooNUHSD6ugAxVaGIgQU15gxRkCXmApRlIBiQhQhoLimHRECMklNm7oxGpaECd2A/br86xMalIIp3YD9q9vQLE2rKzpx+gK6bns0JNqJ3YD930s815qjRV6CGmVpaN4m0cA2aEo34KHvL1epaMMi9HQDbjQdkwG6Tns0yzjIzFcYlH5Y06a9L0cTm1sK0BIlaqTp/j2r8wMy3xcxWjQuZ/YcBVtppsqW3Ni0LKANi4CAJp6sbk8TT1a3p4mnGqXR6LQMIG83K6dR1wfXCvfQPCVo6AcbAeQxWQVGtw4IT1aB0c0DCjVKQMAoAQGjBASMEhAwSkDbEwEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQ0OSAirVF6x3r1H2+le3gNHV713KSyHFvC87KBZ7u2SypNdRXUwM6P+cQUlu+pENIZieU2W5yH39vp5nl17qe3WALT/M4PQ7ydWlqQOp4HYt3THF+iv1M5uII0E6oY+lNrT053G8swSrK8WfazNMGOUqKA1D68L0FUGrPk6tgFZ/tu3U7TkCu8/FTG7g8y7Y2KPmDtTHL7v9zcD2I0RptZFWskGNdMbNmTNYZCyD1GKHu2bupdC1xVVVXtAGHH84BKHM+mN32lOTe4z+7DZEqhNYGyl6xZbGy1T1PzQCob126m4eiTXEC6h6pptph61FrVivOXsNT0wPqPUjPkmHn+KW4vtMkq7Jja6rtNUz9JK5eA2tyQK7DYBUaR99t+e1d1ysfHJsd+wF+vfF6aPpxkKv8SAiGA03ns05Y0T13r09ddhylJLI2qKwxtrQm7iG/tfVwXZ855jKudiZxzX28xMkqEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERBQ/ICMI1WuIQICIiCg6ACVDk93L9r9JQdUMCr+pEGuLGMUHaDSr/nhTTpQSY9NE5D8P8AZaoyiA1T4QZ0Oj6f3L6o4GYCUF2LYQwaHKj5AkkbpTZfJOmYAUsGBDxMeqPgASedE6ZKXNzf3PzdLkHtHz3yKEJDcbPCkykmrio135h2vCAGdDl/LnVOypcl0FXssYF2jx48QUN6/73Thyfv0nIrcwXB+FqoXuySLlqMYAam9OcUGxRyGLDZy9+Ff9Dho2XNSYwQUlQgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICOj/OlkaTh5mv3IAAAAASUVORK5CYII=" /><!-- --><br />
+## Question<br />
+<strong>3.7:Write a function to generate a random sample of size n from
+the Beta(a,b)distribution by the acceptance-rejection method. Generate a
+random sample of size 1000 from the Beta(3,2) distribution. Graph the
+histogram of the sample with the theoretical Beta(3,2) density
+superimposed.</strong><br />
+## Answer<br />
+采用Acceptance-rejection 的算法：令g(x) = 1, 0 &lt; x &lt; 1 和 <span class="math inline">\(c=\frac 1{B(a,b)}\)</span>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#编写函数</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>Myfunction <span class="ot">&lt;-</span> <span class="cf">function</span>(m,n){</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">numeric</span>(N)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="cf">while</span> (i <span class="sc">&lt;</span> N)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  {u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="cf">if</span> (x<span class="sc">^</span>(m<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x)<span class="sc">^</span>(n<span class="dv">-1</span>)<span class="sc">&gt;</span> u)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="co">#选择上界c为1/B(a,b)，g(x)为U(0,1)均匀分布的密度函数</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  {</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    y[i] <span class="ot">&lt;-</span> x</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  }</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  j</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>  }</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>}</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="fu">Myfunction</span>(<span class="dv">3</span>,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##    [1] 0.25972667 0.53191391 0.62133991 0.74884888 0.48280593 0.48482970
+##    [7] 0.82357947 0.53336637 0.64305196 0.70755062 0.95806079 0.68707020
+##   [13] 0.50878379 0.95187806 0.58891310 0.52479673 0.41364176 0.43686408
+##   [19] 0.67937599 0.59139265 0.85276351 0.82437683 0.41424380 0.96559282
+##   [25] 0.83034987 0.35570113 0.57258685 0.63511396 0.41005689 0.66929175
+##   [31] 0.86194178 0.84886304 0.46689966 0.33085658 0.62743530 0.36118876
+##   [37] 0.83336307 0.64555761 0.58178049 0.50394189 0.72546533 0.62061090
+##   [43] 0.34910976 0.35752632 0.76893484 0.41048721 0.73625518 0.33264399
+##   [49] 0.12772947 0.37511451 0.35171876 0.33863156 0.86823908 0.70050885
+##   [55] 0.83721321 0.94346527 0.59112168 0.89920258 0.23541840 0.25716162
+##   [61] 0.70460637 0.80229301 0.70105171 0.76201267 0.39393202 0.64918680
+##   [67] 0.32058629 0.56927067 0.74023959 0.48322905 0.17467938 0.90937673
+##   [73] 0.63410642 0.63835845 0.49154675 0.54453165 0.64566276 0.74100871
+##   [79] 0.62575632 0.75217991 0.92024296 0.50207760 0.61670481 0.57728537
+##   [85] 0.74776947 0.39576103 0.64925237 0.86720028 0.55724876 0.64264933
+##   [91] 0.90485481 0.79283551 0.51006903 0.79299956 0.77020082 0.77780495
+##   [97] 0.65916345 0.70995752 0.58161598 0.28963079 0.35728531 0.20050960
+##  [103] 0.31165186 0.20908010 0.49171962 0.38117492 0.84617154 0.90747693
+##  [109] 0.91215421 0.54760904 0.48209508 0.66461814 0.76997574 0.30812356
+##  [115] 0.93041785 0.74573612 0.35694351 0.47073748 0.15898517 0.67116802
+##  [121] 0.47125851 0.91655226 0.81159252 0.80285800 0.71911532 0.58792829
+##  [127] 0.57807566 0.56702379 0.71581435 0.50983772 0.64448587 0.36593777
+##  [133] 0.67153281 0.84833441 0.82093753 0.23093963 0.48423641 0.64034378
+##  [139] 0.63850558 0.29708290 0.85026526 0.09724155 0.60244343 0.40364291
+##  [145] 0.48842948 0.37522144 0.54348292 0.73143886 0.52507238 0.62396909
+##  [151] 0.38362559 0.49404201 0.48860878 0.53700151 0.58958927 0.39408342
+##  [157] 0.82443221 0.23298844 0.62108140 0.71559011 0.54601249 0.22863696
+##  [163] 0.49895714 0.66934565 0.74923555 0.44987757 0.31339522 0.40967107
+##  [169] 0.31020624 0.09950166 0.76145121 0.60738658 0.75604685 0.37973788
+##  [175] 0.23532532 0.46623002 0.37452010 0.37074473 0.43098981 0.82852977
+##  [181] 0.81801228 0.82240571 0.68125959 0.90691981 0.86358917 0.61339424
+##  [187] 0.69176839 0.51756351 0.72252835 0.87066911 0.24363155 0.41644983
+##  [193] 0.71627763 0.65787998 0.72269942 0.80573104 0.63119975 0.78678973
+##  [199] 0.80443305 0.46193604 0.87655657 0.97496405 0.45600709 0.43196531
+##  [205] 0.83585767 0.69764260 0.76209909 0.48529855 0.89861319 0.80726800
+##  [211] 0.63078470 0.88109689 0.89860997 0.69566268 0.21337838 0.73563563
+##  [217] 0.40745559 0.71534910 0.61455641 0.67160765 0.45335011 0.88662458
+##  [223] 0.81622706 0.85247687 0.89965134 0.30202073 0.90073247 0.25186986
+##  [229] 0.53613665 0.72696141 0.78992958 0.51220195 0.21896495 0.47084470
+##  [235] 0.76242802 0.75352702 0.74188507 0.52842578 0.14088227 0.46884353
+##  [241] 0.88849016 0.66064381 0.73040363 0.50962496 0.63896373 0.37035163
+##  [247] 0.39552043 0.58822374 0.38082970 0.34168456 0.67924069 0.81346918
+##  [253] 0.60400264 0.91728252 0.47314941 0.84232246 0.77194167 0.85925486
+##  [259] 0.68294845 0.44950429 0.19055555 0.62928146 0.79261676 0.76037144
+##  [265] 0.95762302 0.74545333 0.64634513 0.65778065 0.79750299 0.59211263
+##  [271] 0.64022351 0.86805832 0.67474266 0.76926037 0.33596462 0.45203407
+##  [277] 0.60778074 0.65935457 0.64456330 0.64041424 0.49666964 0.68818486
+##  [283] 0.75156629 0.77038852 0.64970708 0.79747620 0.52935282 0.45861541
+##  [289] 0.40214025 0.70685540 0.54597050 0.85086862 0.65107801 0.22608052
+##  [295] 0.16194400 0.93683927 0.89492447 0.32190869 0.72252852 0.87646751
+##  [301] 0.96221302 0.78267972 0.78607219 0.53497628 0.47445807 0.70159666
+##  [307] 0.06147266 0.70157073 0.96583607 0.44587715 0.52500724 0.81590883
+##  [313] 0.81771764 0.51024916 0.60426191 0.50601743 0.67333870 0.43505128
+##  [319] 0.56611280 0.67892016 0.32534887 0.17232363 0.30580457 0.62619801
+##  [325] 0.48980471 0.79238031 0.35130345 0.91649412 0.94553874 0.70232270
+##  [331] 0.17379000 0.58147843 0.90669753 0.49651918 0.74595958 0.54021497
+##  [337] 0.31780766 0.76751563 0.84746528 0.85192549 0.96429299 0.66897381
+##  [343] 0.37526239 0.62133548 0.52614843 0.67454918 0.99141105 0.83255446
+##  [349] 0.70829111 0.55708669 0.54304349 0.57629433 0.80064538 0.32817348
+##  [355] 0.70347987 0.65480704 0.47935272 0.60193696 0.65800079 0.59543644
+##  [361] 0.57340329 0.89943162 0.93000352 0.42103604 0.69890497 0.80277411
+##  [367] 0.91708563 0.83281117 0.70206509 0.95529413 0.26290708 0.51247709
+##  [373] 0.46647670 0.49247014 0.64501805 0.67645789 0.63791154 0.67586007
+##  [379] 0.69747111 0.27275726 0.49583668 0.73588813 0.39243911 0.27615925
+##  [385] 0.97250945 0.53808920 0.71824028 0.69733718 0.83321862 0.95375333
+##  [391] 0.54577119 0.36381419 0.72910794 0.43982474 0.75815881 0.55760078
+##  [397] 0.18509292 0.48876089 0.70134706 0.80254757 0.58055384 0.52756486
+##  [403] 0.49993058 0.56668034 0.78601798 0.54276051 0.83279793 0.66941137
+##  [409] 0.88569090 0.26892081 0.66061737 0.73239622 0.77765512 0.81591815
+##  [415] 0.79717104 0.54289586 0.37520170 0.83565313 0.64888250 0.34626660
+##  [421] 0.56702861 0.79711706 0.84134747 0.57001967 0.75360545 0.42586006
+##  [427] 0.64731879 0.36361006 0.67955504 0.74889945 0.53139091 0.38662966
+##  [433] 0.66032037 0.33038566 0.58439456 0.86230049 0.44108804 0.51495896
+##  [439] 0.50687823 0.39520546 0.87751536 0.81670997 0.96631140 0.70960029
+##  [445] 0.88422506 0.55403939 0.63156083 0.49029780 0.53832819 0.51267380
+##  [451] 0.64530972 0.65155067 0.71096185 0.16690010 0.95945301 0.64162760
+##  [457] 0.38189321 0.82988863 0.41385286 0.29879592 0.57781651 0.89373916
+##  [463] 0.86336689 0.65553700 0.35804728 0.27580228 0.57214584 0.65249664
+##  [469] 0.27476786 0.75190459 0.53794115 0.80500140 0.92894848 0.48584928
+##  [475] 0.66201614 0.72453754 0.74718937 0.34905869 0.91795128 0.77175567
+##  [481] 0.52010334 0.50076962 0.77295107 0.78074683 0.45837490 0.45326618
+##  [487] 0.28381619 0.81969018 0.94539413 0.51376892 0.33687112 0.49998316
+##  [493] 0.35063819 0.60142137 0.92071410 0.80536045 0.80516468 0.45480802
+##  [499] 0.51970330 0.82220771 0.48157536 0.86016356 0.73996500 0.58974510
+##  [505] 0.60141732 0.27016774 0.53022070 0.37437767 0.32404485 0.78551923
+##  [511] 0.50759796 0.54242648 0.38712966 0.62615152 0.55596558 0.47725069
+##  [517] 0.56945279 0.18229744 0.88120135 0.71847997 0.09349462 0.71839356
+##  [523] 0.72389721 0.84073270 0.82073261 0.58067100 0.43170892 0.83830509
+##  [529] 0.53748480 0.49220243 0.89901430 0.75965291 0.58149118 0.95308995
+##  [535] 0.87191195 0.93273006 0.37077303 0.32918339 0.69646361 0.65293049
+##  [541] 0.57621360 0.88263453 0.71203242 0.47082641 0.38593752 0.30323673
+##  [547] 0.65808398 0.70778737 0.33245317 0.83429165 0.69952025 0.55514939
+##  [553] 0.69595736 0.74429348 0.42770785 0.97941048 0.73260837 0.90752153
+##  [559] 0.45942932 0.30527961 0.13974754 0.77368194 0.50895135 0.68017056
+##  [565] 0.39652873 0.21221505 0.55172342 0.49109197 0.40868531 0.74766541
+##  [571] 0.56536385 0.74987734 0.65913943 0.49407603 0.82305257 0.59309879
+##  [577] 0.73058782 0.68909463 0.33940066 0.75866096 0.39144002 0.59583212
+##  [583] 0.42107069 0.65320157 0.85553511 0.76650547 0.60643499 0.76775868
+##  [589] 0.90302285 0.92858805 0.14006497 0.94442493 0.56518317 0.77594417
+##  [595] 0.59945870 0.51550481 0.71498254 0.58792854 0.68128825 0.62938492
+##  [601] 0.52291266 0.31482813 0.45522223 0.49166719 0.47544680 0.56530548
+##  [607] 0.26207587 0.72180341 0.62322595 0.78711825 0.40079314 0.67888991
+##  [613] 0.75319866 0.66030067 0.59654699 0.65015258 0.66192650 0.40514462
+##  [619] 0.79499188 0.71550630 0.51954141 0.73922139 0.57035491 0.41647783
+##  [625] 0.80985346 0.33116156 0.74780775 0.52470515 0.53803362 0.66044013
+##  [631] 0.47982240 0.31910124 0.63550214 0.12141302 0.49155700 0.61524266
+##  [637] 0.71338770 0.18433883 0.99229380 0.25977482 0.45537235 0.78007678
+##  [643] 0.50395435 0.71214691 0.46111620 0.58040243 0.67430222 0.57158911
+##  [649] 0.35399091 0.11429864 0.74539452 0.19403362 0.55525633 0.53627552
+##  [655] 0.91889580 0.38344134 0.73733574 0.09416278 0.65185035 0.40543557
+##  [661] 0.60868709 0.09798511 0.82347671 0.55083545 0.78221975 0.43061888
+##  [667] 0.09997796 0.66577268 0.79378718 0.38125672 0.10838659 0.36751307
+##  [673] 0.46637442 0.69850979 0.87696409 0.56899004 0.54649086 0.42451146
+##  [679] 0.64669214 0.80701801 0.32848943 0.38032652 0.60640385 0.72108438
+##  [685] 0.75879002 0.38742839 0.40870394 0.41459664 0.87934958 0.73754713
+##  [691] 0.51898779 0.55254912 0.95581602 0.88064424 0.83781774 0.66138213
+##  [697] 0.76277028 0.45350355 0.65018810 0.61442277 0.20745466 0.39860668
+##  [703] 0.72915627 0.30553554 0.38830773 0.55895410 0.36867409 0.73798549
+##  [709] 0.63423044 0.74341849 0.90159942 0.41510235 0.81580379 0.58269082
+##  [715] 0.87811970 0.50092284 0.72065714 0.78047793 0.84471647 0.91555680
+##  [721] 0.35375835 0.55293303 0.85861837 0.49848409 0.10094654 0.50183388
+##  [727] 0.81707960 0.77778861 0.32277518 0.48215036 0.57688153 0.40609867
+##  [733] 0.37448616 0.68898156 0.39880909 0.49514508 0.85764422 0.91077037
+##  [739] 0.51061711 0.74642714 0.52596520 0.32530234 0.17221690 0.67596383
+##  [745] 0.44559771 0.47497242 0.63811975 0.57727497 0.74021430 0.11301068
+##  [751] 0.18120666 0.35515655 0.81183524 0.61167070 0.65594132 0.54864723
+##  [757] 0.94886539 0.46836224 0.61545289 0.79448836 0.50631476 0.54584754
+##  [763] 0.77812671 0.90327236 0.83359466 0.71304606 0.60186671 0.40744132
+##  [769] 0.79607095 0.83159888 0.59676206 0.77448175 0.68789986 0.40891830
+##  [775] 0.66336297 0.75888079 0.90892735 0.31291761 0.55717208 0.69088548
+##  [781] 0.37605018 0.43893051 0.84437430 0.93398515 0.70391038 0.76463789
+##  [787] 0.68271689 0.26077497 0.30982439 0.33420457 0.47903236 0.90005862
+##  [793] 0.83434142 0.66418876 0.80203956 0.50332712 0.65774354 0.65479726
+##  [799] 0.53422365 0.48649435 0.81258327 0.68894257 0.46925387 0.10352359
+##  [805] 0.46595241 0.64193619 0.64247356 0.56112363 0.49830283 0.37224213
+##  [811] 0.35229827 0.44525040 0.47116233 0.71244097 0.77901931 0.32616795
+##  [817] 0.68059616 0.78799656 0.34718985 0.48568407 0.53932844 0.81297258
+##  [823] 0.38523487 0.45971374 0.74063555 0.82097671 0.63372573 0.64495508
+##  [829] 0.89472298 0.53968566 0.74240835 0.61295669 0.71117987 0.91299260
+##  [835] 0.47798041 0.70766000 0.84512836 0.90777458 0.83386109 0.41714856
+##  [841] 0.72364802 0.46406988 0.79897754 0.57884457 0.43678256 0.28036897
+##  [847] 0.87307116 0.95260433 0.57097962 0.79287465 0.31572787 0.67909644
+##  [853] 0.75488857 0.68642554 0.40463760 0.72391860 0.30739552 0.33924274
+##  [859] 0.25255195 0.74855258 0.45851927 0.52103523 0.75441958 0.46850379
+##  [865] 0.59654118 0.30344850 0.66366433 0.66714529 0.63170217 0.55128435
+##  [871] 0.46658597 0.93028184 0.71088133 0.42416070 0.78947965 0.82961142
+##  [877] 0.17192561 0.82498490 0.58444563 0.46685377 0.41967880 0.78049179
+##  [883] 0.52934340 0.90424844 0.78784137 0.74974480 0.21008163 0.50034938
+##  [889] 0.08218195 0.60941700 0.72539566 0.72261631 0.81627579 0.52620853
+##  [895] 0.69514903 0.59225747 0.80482664 0.25234867 0.17649812 0.80249466
+##  [901] 0.64168169 0.40067929 0.76912812 0.63337892 0.82985279 0.37440665
+##  [907] 0.93038890 0.77547309 0.50011165 0.91527098 0.83459924 0.48091635
+##  [913] 0.53372968 0.60863407 0.44745873 0.78618006 0.64872592 0.51005986
+##  [919] 0.38036772 0.55108668 0.73632785 0.79479799 0.87864035 0.87083573
+##  [925] 0.34669929 0.36425753 0.66377097 0.41567236 0.53922731 0.45592754
+##  [931] 0.66298717 0.78756323 0.50248346 0.37247385 0.24950345 0.55069905
+##  [937] 0.87786967 0.37618081 0.62820071 0.38369857 0.55455807 0.24356980
+##  [943] 0.71139111 0.47746498 0.67984723 0.85747481 0.49384888 0.69105373
+##  [949] 0.69010758 0.59042901 0.56811696 0.66908455 0.48713281 0.51916638
+##  [955] 0.57703806 0.94706919 0.75190591 0.78941614 0.41434068 0.70074425
+##  [961] 0.78587778 0.15178446 0.39956267 0.73576965 0.71265177 0.61230130
+##  [967] 0.66619193 0.18883334 0.77017924 0.55392359 0.40147177 0.75856710
+##  [973] 0.19642738 0.17770091 0.25366609 0.39935845 0.85442241 0.88238558
+##  [979] 0.52912447 0.50111696 0.49124558 0.53621228 0.56702374 0.87307936
+##  [985] 0.17327272 0.86944843 0.53010727 0.52615484 0.54615519 0.30175672
+##  [991] 0.40449236 0.90787977 0.58932582 0.54617317 0.56146861 0.77767437
+##  [997] 0.48613152 0.62999573 0.46080501 0.48078817</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">#用理论Beta(3,2)密度叠加的样本直方图。</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">Myfunction</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="at">main =</span> <span class="st">&quot;histogram of the sample with the theoretical Beta(3,2) density&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>ff <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>x)<span class="sc">^</span>{<span class="dv">2-1</span>}<span class="sc">/</span><span class="fu">beta</span>(<span class="dv">3</span>,<span class="dv">2</span>)}</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">curve</span>(ff, <span class="dv">0</span>, <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)   </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&#39;topleft&#39;</span>,<span class="st">&quot;real density&quot;</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">cex=</span><span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- -->
+##Question<br />
+3.9:The rescaled Epane chnikov kernel is a symmetric density
+function<span class="math display">\[f_e(x)=\frac 34*(1-x^2),\quad
+|x|\le 1\]</span> Devroye and Gy¨orfi give the following algorithm for
+simulation from this distribution. Generate iid U1, U2, U3 ∼ Uniform(−1,
+1). If <span class="math inline">\(|U3| \ge|U2|\)</span> and <span class="math inline">\(|U3|\ge|U1|\)</span>, deliver U2; otherwise
+deliver U3. Write a function to generate random variates from <span class="math inline">\(f_e\)</span>, and construct the histogram density
+estimate of a large simulated random sample.<br />
+</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>UU1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10000</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)    </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>UU2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10000</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>UU3 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10000</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>UU <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((<span class="fu">abs</span>(UU3)<span class="sc">&gt;</span><span class="fu">abs</span>(UU2) <span class="sc">&amp;</span> <span class="fu">abs</span>(UU3)<span class="sc">&gt;</span><span class="fu">abs</span>(UU1)), UU2, UU3)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">hist</span>(UU, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="at">main =</span> <span class="st">&quot;histogram density estimate of a large simulated random sample&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>ff <span class="ot">&lt;-</span> <span class="cf">function</span>(X) {<span class="dv">3</span><span class="sc">/</span><span class="dv">4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>X<span class="sc">^</span><span class="dv">2</span>)}</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">curve</span>(ff, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)   </span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&#39;topleft&#39;</span>,<span class="st">&quot;real density&quot;</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">cex=</span><span class="fl">0.6</span>)   </span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --><br />
+## Question<br />
+<strong>3.10:Prove that the algorithm given in Exercise 3.9 generates
+variates from the density <span class="math inline">\(f_e\)</span>
+(3.10).</strong><br />
+## Answer<br />
+不妨设 <span class="math inline">\(X_1=|U1|, X_2=|U2|,
+X_3=|U3|\)</span>,由<span class="math inline">\(X_1,X_2,X_3\)</span>的定义易得： <span class="math inline">\(X_1,X_2,X_3 \sim\)</span> U(0,1)。</p>
+<p>令 <span class="math inline">\(X= \begin{cases} X_2 \quad X_3 \ge
+X_1和X_3 \ge X_2 \\ X_3 \quad 其他 \\ \end{cases}\)</span><br />
+由于<span class="math inline">\(f_a(x)\)</span>是对称的,
+我们需要证明<span class="math inline">\(X\)</span> 服从以下分布：<br />
+<span class="math display">\[f_{a&#39;}(x)=2*\frac 34(1-x^2),\quad 0 \le
+x \le 1\]</span></p>
+<p>生成 <span class="math inline">\(X\)</span>的算法如下 :<br />
+<br />
+1. 生成 <span class="math inline">\(X_1,X_2,X_3 \sim\)</span> U(0,1)。
+2. 去除三个变量中最大的 <span class="math inline">\(X_{(3)}\)</span> 。
+3. 从剩下的两个变量中选择一个具有相同概率的变量，并令<span class="math inline">\(X\)</span>为这个变量的值。</p>
+<p>对于任意满足 <span class="math inline">\(0 \le x \le
+1\)</span>的<span class="math inline">\(x\)</span>,可以构造下面这两个集合:<br />
+A={只有一个 <span class="math inline">\(X_i \le x\)</span> }<br />
+B={至少两个 <span class="math inline">\(X_i \le x\)</span> },<br />
+通过这两个集合可以计算出<span class="math inline">\(X\)</span>的分布函数, 因此可以得出<span class="math inline">\(F_{a&#39;}(x)\)</span> 的计算表达式为:</p>
+<p><span class="math display">\[\begin{align*}
+F_{a&#39;}(x)&amp;=P(X\le x)\\
+&amp;=P(X \le x,A)+P(X \le x,B)\\
+&amp;=P(X \le x~|~A)*P(A) + P(X \le x~|~B)*P(B)\\
+&amp;=\frac 12*3x(1-x)^2 + 1*[3x^2(1-x) + x^3]\\
+&amp;=-\frac 12 x^3 +\frac 32 x,\quad 0 \le x \le 1
+\end{align*}\]</span></p>
+<p>因此，<span class="math inline">\(X\)</span> 的密度函数为： <span class="math display">\[ f_{a&#39;}(x)=F&#39;_{a&#39;}(x)=2*\frac
+34(1-x^2),\quad 0 \le x \le 1 \]</span><br />
+可以说明该算法对应产生的密度函数是<span class="math inline">\(f_a\)</span> 。<br />
+##Question<br />
+<strong>课后习题：利用逆变化复现函数sample的部分功能（replace=TURE)</strong><br />
+##Answer<br />
+sample函数对应的参数形式如下：sample(x,size,replace,prob)<br />
+其中，x为一个可供选择的一个或多个元素的向量，或一个整数。size为一个非负数，是指的可控选择的项目数。replace代表是否发生替换，True相当于无放回抽样，False相当于有放回抽样。prob代表被采样元素的概率权重向量。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#首先考虑默认情况，相当于随机的有放回抽样。要抽取的数组a所对应的编号相当于离散型的随机变量x，生成的均匀分布的随机数为y。因此可以用逆变换来生成对应的随机数编号。</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>my.sample1 <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>c <span class="ot">&lt;-</span><span class="fu">length</span>(a)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>   x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, c, <span class="dv">1</span>)<span class="co">#数组a产生的编号</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>   p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>,c)<span class="sc">/</span>c<span class="co">#每个编号所对应的概率</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>   cp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">cumsum</span>(p)) <span class="co">#累加得到分布函数</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>   y1 <span class="ot">=</span> <span class="fu">numeric</span>(b)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>b)<span class="co">#一共进行b次，抽取b个数据</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  { u<span class="ot">=</span><span class="fu">runif</span>(<span class="dv">1</span>)<span class="co">#产生随机数</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(cp)<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>     { <span class="cf">if</span>(u<span class="sc">&gt;</span>cp[i] <span class="sc">&amp;</span> u<span class="sc">&lt;=</span>cp[i<span class="sc">+</span><span class="dv">1</span>])<span class="co">#利用逆变换的到x（即对应的编号）</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        {y1[j]<span class="ot">=</span>x[i]</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>          <span class="cf">break</span>}</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    }</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>   }</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  <span class="fu">return</span>(a[y1])</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#举例</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">6</span>,<span class="dv">46</span>,<span class="dv">0</span>,<span class="dv">8</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="fu">my.sample1</span>(a,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 6 1 6</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">my.sample1</span>(a,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 9 0</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#考虑，replace等于TRUE的情况，相当于随机的无放回抽样。</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>my.sample2 <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  c <span class="ot">&lt;-</span><span class="fu">length</span>(a)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, c, <span class="dv">1</span>)<span class="co">#数组a产生的编号</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>,c)<span class="sc">/</span>c<span class="co">#每个编号所对应的概率</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  cp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">cumsum</span>(p)) <span class="co">#累加得到分布函数</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  y1 <span class="ot">=</span> <span class="fu">numeric</span>(b)</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  j<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="cf">while</span>(j<span class="sc">&lt;=</span>b)<span class="co">#一共进行b次，抽取b个数据</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  { u<span class="ot">=</span><span class="fu">runif</span>(<span class="dv">1</span>)<span class="co">#产生随机数</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(cp)<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>    <span class="cf">if</span>(u<span class="sc">&gt;</span>cp[i] <span class="sc">&amp;</span> u<span class="sc">&lt;=</span>cp[i<span class="sc">+</span><span class="dv">1</span>])<span class="co">#利用逆变换的到x（即对应的编号）</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>    {xx<span class="ot">=</span>x[i]</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>    }</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>    m<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>    flag<span class="ot">=</span><span class="dv">1</span><span class="co">#用于标记是否符合不重复的条件</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>    <span class="cf">while</span>(m<span class="sc">&lt;=</span>j){</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>     <span class="cf">if</span>(y1[m]<span class="sc">==</span>xx)<span class="co">#判断是否与之前的有重复</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>      { flag<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>      }</span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a>    m<span class="ot">=</span>m<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>    }</span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>    <span class="cf">if</span>(flag<span class="sc">==</span><span class="dv">1</span>)<span class="co">#不与之前的重复，则放入y1中</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>    { y1[j]<span class="ot">=</span>xx</span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>       j<span class="ot">=</span>j<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>    }</span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>  }</span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a> <span class="fu">return</span>(a[y1])</span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>}</span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a><span class="co">#举例</span></span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">32</span>,<span class="dv">34</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">65</span>,<span class="dv">74</span>,<span class="dv">89</span>)</span>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="fu">my.sample2</span>(b,<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 89 74 34  5</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">my.sample2</span>(b,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 74 89</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

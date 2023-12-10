@@ -1,0 +1,70 @@
+---
+title: "Homework-2023.9.11"
+author: "丁婧琦"
+date: "2023-9-11"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question
+
+Use knitr to produce at least 3 examples.For each example,texts should mix with figures and/or tables.Better to have mathematical formulas.
+
+
+## Answer
+**例子1：普通多元回归分析（含公式）**
+\
+解答：普通多元回归分析一般采用最小二乘法估计的方法来进行参数估计，最小二乘的参数估计表达式为：
+$$\hat{\beta_1} =  \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i-\bar{x})^2}$$
+$$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}$$
+其中$x_i$和$y_i$为样本值。
+\
+本例子搜集了北京、天津、河北等31个地区的地区生产总值与财政收入数据，通过普通多元回归分析的方法构建模型。模型中令地区生产总值为x，财政收入为y。
+```{r}
+data1<-read.csv("d://t/li4.3.csv",head = TRUE)
+#读入数据文件并赋给data，head = TRUE表示数据第一行是变量名称
+data1  #显示数据
+attach(data1)
+plot(x,y)#做散点图
+#简单线性回归
+lm.fit1<-lm(y~x)
+#查看模型结果
+summary(lm.fit1)
+plot(lm.fit1)
+```
+\
+**例子2：时间序列分析（画图部分）**
+\
+解答：从《中国统计年鉴》上查询到了我国1992年到2014年的第一产业增值的季度数据。
+```{r}
+data2<-read.csv("d://t/time series.csv",head = TRUE)
+#读入数据文件并赋给data2，head = TRUE表示数据第一行是变量名称
+data2  #显示数据
+dat = data.frame(x = "Quarter", y = "money")
+plot(y,x)
+```
+\
+**例子3：图表生成**
+\
+1.生成条形图
+```{r}
+library(grid)
+library(vcd)
+height <- c(1,2,2,2,3,4,7,5,1,5,6)
+a<-table(height)
+barplot(a)
+```
+\
+2.生成饼图
+```{r}
+b <- c(1,9,2,4,3)
+lable <- c("US","China","UK","Australian","America")
+pie(b,lable)
+```

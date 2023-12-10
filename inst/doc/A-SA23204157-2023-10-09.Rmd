@@ -1,0 +1,301 @@
+---
+title: "Homework-2023-10.09"
+author: "丁婧琦"
+date: "2023-10-09"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question  
+**Exercises 5.13:**Find two importance functions f1 and f2 that are supported on (1, ∞) and are ‘close’ to 
+$$g(x) = \frac{x^2}{\sqrt{2π}}e^{−x^2/2}, x> 1.$$
+Which of your two importance functions should produce the smaller variance in estimating
+$$\int_1^\infty \frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx$$
+by importance sampling? Explain.
+
+
+## Answer
+根据函数g(x)，选取分布与g(x)较为相似的四个importance function 如下：
+$$f_1(x)=\frac {x}{4}e^{-\frac x2},x>0$$
+$$f_2(x)= {4x^2}e^{-\frac {x}{2}},x>0$$
+$$f_3(x)=\frac {x}{\sqrt{2\pi}}e^{-\frac {x}{2}}$$
+$$f_4(x)=\frac {x}{\sqrt{2\pi}}e^{-\frac {x^2+1}{2}}$$
+分别绘制出，$g(x),f_1(x),f_2(x),f_4(x)$的图像如下：
+```{r}
+#绘制四个图像
+set.seed(1234)
+x<-seq(0,10,0.01)
+g<-x^2*exp(-x^2/2)/sqrt(2*pi)*(x>1)
+f1<-x*exp(-x/2)/4*(x>0)
+f2<-4*(x^2)*exp(-2*x)*(x>0)
+f3<-x*exp((-x)/2)/sqrt(2*pi)
+f4<-x*exp((-x^2+1)/2)/sqrt(2*pi)
+gs<-c(expression(g(x)==x^2*exp(-x^2/2)/sqrt(2*pi)*(x>1)),
+            expression(f[1](x)==x*exp(-x/2)/4*(x>0)),
+            expression(f[2](x)==4(x^2)*exp(-2*x)*(x>0)),
+            expression(f[3](x)==x*exp((-x)/2)/sqrt(2*pi)),
+            expression(f[4](x)==x*exp((-x^2+1)/2)/sqrt(2*pi)))
+
+plot(x, g,type = "l",main="g(x)和fi(x)的图像",ylab='',ylim=c(0,0.6),lwd = 1.5,col=1)
+lines(x,f1,lty = 2, lwd = 2,col=2)
+lines(x,f2,lty = 2, lwd = 2,col=3)
+lines(x,f3,lty = 2, lwd = 2,col=4)
+lines(x,f4,lty = 2, lwd = 2,col=5)
+legend("topright", legend = gs, lty = 1:5, lwd = 2, inset = 0.02,col=1:5)
+```
+\
+为了比较哪个importance function会产生更小的方差，比较$\frac {g(x)}{f_i(x)}$中哪项更加平稳（及波动更小）
+```{r}
+#绘制g(x)/fi(x)的图像
+plot(x, g/f1, type = "l",main="g(x)/fi(x)的图像", ylab = "",
+        ylim = c(0,15), lwd = 2, lty = 2,col=2)
+    lines(x, g/f2, lty = 2, lwd = 2,col=3)
+    lines(x, g/f3, lty = 2, lwd = 2,col=4)
+    lines(x, g/f4, lty = 2, lwd = 2,col=5)
+    legend("topright", legend = gs,
+           lty = 2, lwd = 2, inset = 0.02,col=1:5)
+```
+\
+由图像可知，函数$f_1(x)、f_2(x)和f_3(x)$所对应的比值波动较小。 从函数图像上来看$f_1(x)、f_2(x)和f_3(x)$在估计的时候均会对应产生较小的方差，因此需要进行进一步的模拟才能知道哪个会产生更小的方差。
+
+## Question
+**Exercises 5.14:**Obtain a Monte Carlo estimate of
+$$\int_1^\infty \frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx$$
+by importance sampling.
+
+## Answer
+由于函数$f_1(x),f_2(x)和f_3(x)$对应比值波动较为接近，但函数$f_3(x)$的随机数不容易产生，因此可以选取$f_1(x)和f_2(x)$来进行蒙特卡罗模拟。模拟值可以通过
+$$\hat\theta=\frac 1m \sum_{i=1}^m\frac {g(x_i)}{f_1(x)}$$
+```{r}
+set.seed(1234)
+n<-10000
+h1<-function(x){
+  g<-x^2*exp(-x^2/2)/sqrt(2*pi)*(x>1)
+  f1<-x*exp(-x/2)/4*(x>0)
+  h<-g/f1
+  return(h)
+}
+h2<-function(x){
+  g<-x^2*exp(-x^2/2)/sqrt(2*pi)*(x>1)
+  f2<-4*(x^2)*exp(-2*x)*(x>0)
+  h<-g/f2
+  return(h)
+}
+#生成服从f1的随机数
+v<-rgamma(n,2,1/2)
+y1<-h1(v)
+mean1<-mean(y1)
+sd1<-sd(y1)
+mean1
+sd1
+#生成服从f2的随机数
+u<-rgamma(n,3,2)
+y2<-h2(u)
+mean2<-mean(y2)
+sd2<-sd(y2)
+mean2
+sd2
+
+```
+因此，通过比较两者均值可以发现如果采用$f_1(x)$进行模拟,对应的标准差更大，从之前的图像也可以看出$f_2(x)$在图像上更接近真实的g(x)。因此选取$f_2(x)$进行模拟更为合理。可得$f_2(x)$积分的蒙特卡罗估计值约为0.4006459，估计值的标准差约为0.3024057。
+
+## Question
+**Exercises 5.15:**Obtain the stratified importance sampling estimate in Example 5.13 and compare it with the result of Example 5.10.
+
+## Answer
+对exercise 5.13进行分层抽样。
+\
+首先，利用stratified importance sampling来估计$$g(x) =\int_1^\infty \frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx.$$
+利用stratified importance sampling进行计算的思路如下：
+首先，将积分进行变量替换令$x=\frac 1t$将这个无穷积分转化到(0,1)区间上：
+$$g(x) =\int_1^\infty \frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx=-\int_0^1\frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt.$$
+将这个积分进行如下处理：
+\begin{aligned}
+\int_0^1\frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt & =\sum_{i=1}^k \int_0^1\frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt \\
+& =\frac{1}{k} \sum_{i=1}^k \int_{(i-1) / k}^{i / k} \frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}k dt \\
+& =\frac{1}{k} \sum_{i=1}^k E\frac {e^{-\frac {1}{{X_i}^2}}}{{X_i}^4\sqrt{2\pi}}, \\
+& \text { where } X_i \sim U((i-1) / k, i / k) .
+\end{aligned}
+```{r}
+M <- 10000
+k <- 10#k为分割的大小
+r <- M/k 
+N <- 50 
+T2 <- numeric(k)
+est <- matrix(0, N, 2)
+g<-function(x)exp(-1/x^2)/(x^4)*sqrt(2*pi)*(x>0)*(x<1)
+for (i in 1:N) {
+  est[i, 1] <- mean(g(runif(M)))
+  for(j in 1:k)T2[j]<-mean(g(runif(M/k,(j-1)/k,j/k)))
+  est[i, 2] <- mean(T2)}
+  round(apply(est,2,mean),4)
+  round(apply(est,2,sd),5)
+```
+根据结果可知，如果采用分层的方法进行估计，估计量的方差会显著减小。
+\
+对example 5.13进行分层抽样。将（0,1）区间划分为五个子区间(j/5, (j + 1 )/5), j = 0, 1, . . . , 4.在第j个区间上可以得到，
+f_j(x)=\frac{e^{-x}}{e^{-(j-1) / 5}-e^{-j / 5}}, x \in\left[\frac{j-1}{5}, \frac{j}{5}\right]
+```{r}
+M <- 10000
+N <- 50 
+k <- 5#k为分割的大小 
+r <- M/k 
+T1 <- numeric(k)
+est <- matrix(0, N, 2)
+g<-function(x,a,b) exp(-x)/(1+x^2)*(x>a)*(x<b)
+gf<-function(x,a,b) g(x,a,b)/(exp(-x)/(exp(-a)-exp(-b)))
+l<-function(u,a,b) -log(exp(-a)-u*(exp(-a)-exp(-b)))
+for (i in 1:N) {
+  u.imp<-runif(M)
+  u.str<-runif(M/k)
+  est[i, 1] <- mean(gf(l(u.imp,0,1),0,1))
+  for(j in 1:k) 
+    T1[j]<- mean(gf(l(u.str,(j-1)/k,j/k),(j-1)/k,j/k))
+  est[i, 2] <- sum(T1)
+}
+round(apply(est,2,mean),5)
+round(apply(est,2,sd),5)
+```
+对比例5.10的结果，如果采用分层的方法进行估计，估计量的方差会显著减小。
+
+## Question
+**Exercises 6.5:**Suppose a 95% symmetric t-interval is applied to estimate a mean, but the sample data are non-normal. Then the probability that the confidence interval covers the mean is not necessarily equal to 0.95. Use a Monte Carlo experiment to estimate the coverage probability of the t-interval for random samples of $\mathcal{X}^2(2)$data with sample size n = 20. Compare your t-interval results with the simulation results in Example 6.4. (The t-interval should be more robust to departures from normality than the interval for variance.)
+
+## Answer
+由题意，需要用95%的对称t置信区间来估计均值。95%的对称t置信区间为：
+$$[\hat\mu-t_{0.975}(n-1)\hat\sigma/\sqrt{n},\hat\mu+t_{0.975}(n-1)\hat\sigma/\sqrt n]$$
+求confidence interval的计算方法如下：
+$$\frac 1m\sum_{j=1}^mI(\hat\theta_1^{(j)}\le\theta\le\hat\theta_2^{(j)}) $$
+其中，$$(\hat\theta_1^{(j)},\hat\theta_2^{(j)})$$是指的第j次进行蒙特卡洛的的置信区间。 
+\
+步骤：1.首先产生20个来自卡方分布的随机数。2.计算95%的对称置信区间,由t分布的临界表可得$t_{0.975}(n-1)=2.093$。3.判断$\mathcal{X}^2(2)$的均值2是否在区间中。4.重复m次,最终可计算CP值。
+```{r}
+set.seed(1234)
+n<-20
+m<-1000
+x<-numeric(m)
+mu<-numeric(m)
+sigma<-numeric(m)
+flag=0
+for(i in 1:m){
+  x<-rchisq(n,df=2)
+  mu[i]<-mean(x)
+  sigma[i]<-sd(x)
+  if(mu[i]-2.093*sigma[i]/sqrt(20)<=2&mu[i]+2.093*sigma[i]/sqrt(20)>=2){
+  flag<-flag+1
+  }
+  cp<-flag/m
+}
+  cp
+```
+计算得出cp=0.909<0.95,说明这个置信区间是Liber自由的。 
+\
+与exercise6.4中的结果进行比较，例6.4是假设X1，…Xn是参数未知的对数正态分布中a的随机样本。为参数µ构造95%置信区间。使用蒙特卡罗方法获得置信度水平的经验估计。
+```{r}
+set.seed(1234)
+n<-20
+m<-1000
+x<-numeric(m)
+mu<-numeric(m)
+sigma<-numeric(m)
+flag=0
+for(i in 1:m){
+  x<-rlnorm(n,0,1)
+  mu[i]<-mean(x)
+  sigma[i]<-sd(x)
+  if(mu[i]-2.093*sigma[i]/sqrt(20)<=exp(1/2)&mu[i]+2.093*sigma[i]/sqrt(20)>=exp(1/2)){
+  flag<-flag+1
+  }
+  cp<-flag/m
+}
+  cp
+```
+计算得出cp=0.878<0.95，因此可得出这个置信区间是Liber自由的。由于对数正态分布是典型的偏离正态的分布，因此它例6.5中的例子，估计更为稳健。
+与example6.4进行对比，不妨假设X1，X2，...Xn也服从卡方分布。按照原先的方法来计算cp并与之前的95%的对称t置信区间进行对比。
+```{r}
+set.seed(1234)
+m<-1000
+n<-20
+ucl<-numeric(m)
+y<-numeric(m)
+for(i in 1:m){
+  x<-rchisq(n,df=2)
+  ucl[i]<-(n-1)*var(x)/qchisq(0.05,df=n-1)
+  y[i]<-(ucl[i]>=4)
+}
+cp<-mean(y)
+cp
+```
+计算得出cp=0.788<0.95，因此可得出这个置信区间是Liber自由的。t区间比方差区间对偏离正态性更有稳健性。
+## Question
+**Exercises 6.A:**Use Monte Carlo simulation to investigate whether the empirical Type I error rate of the t-test is approximately equal to the nominal significance level α, when the sampled population is non-normal. The t-test is robust to mild departures from normality. Discuss the simulation results for the cases where the sampled population is (i) $\mathcal{X}^2(1)$, (ii) Uniform(0,2), and (iii) Exponential(rate=1). In each case, test H0 : µ = µ0 vs H0 : µ = µ0, where µ0 is the mean of $\mathcal{X}^2(1)$, Uniform(0,2), and Exponential(1), respectively.
+
+## Answer
+由题意可知，模拟 empirical Type I error rate看是否接近显著性水平$\alpha$。第一类错误的概率可以通过蒙特卡洛方法计算，计算方法如下：
+$$\frac 1m\sum_{j=1}^mI(p_j\le\alpha)$$。
+因此，需要计算出每次模拟的P值，这里不妨假设$\alpha=0.05$。P值的计算公式如下：
+$$P值=P_{H_0}(|T|>|T^o|)=2P_{H_0}(T>|T^o|)=2(1-F(T^o)).$$
+为了使得结果更加客观具体，分别在这三种情况下，对样本量为10，100，1000的情况下进行模拟。三种分布对应的均值都是$\mu_0=1$。
+```{r}
+n<-c(10,100,1000)#样本容量
+m<-1000#试验次数
+set.seed(1234)
+T0<-numeric(m)
+Tie1<-Tie2<-Tie3<-numeric(3)
+p.val1<-p.val2<-p.val3<-numeric(m)
+for(i in 1:length(n)){
+  flag1<-flag2<-flag3<-0
+  #1.自由度为1的卡方分布
+  for(j in 1:m){
+    x<-rchisq(n[i],1)
+    T0[j]<-(mean(x)-1)*sqrt(n[i])/sd(x)#计算$T^o$
+    p.val1[j]<-2*(1-pt(abs(T0[j]),n[i]-1))
+   if(p.val1[j]<=0.05)
+     flag1<-flag1+1
+  }
+  Tie1[i]<-flag1/m
+  #2.均匀分布Uniform(0,2)
+  for(j in 1:m){
+    x<-runif(n[i],0,2)
+    T0[j]<-(mean(x)-1)*sqrt(n[i])/sd(x)#计算$T^o$
+    p.val2[j]<-2*(1-pt(abs(T0[j]),n[i]-1))
+    if(p.val2[j]<=0.05)
+     flag2<-flag2+1
+  }
+  Tie2[i]<-flag2/m
+  #3.指数分布Exponential(rate=1)
+  for(j in 1:m){
+    x<-rexp(n[i],1)
+    T0[j]<-(mean(x)-1)*sqrt(n[i])/sd(x)#计算$T^o$
+    p.val3[j]<-2*(1-pt(abs(T0[j]),n[i]-1))
+    if(p.val3[j]<=0.05)
+     flag3<-flag3+1
+  }
+  Tie3[i]<-flag3/m
+}
+
+Tie1
+Tie2
+Tie3
+```
+根据三次模拟结果可知，当样本量为1000时，卡方分布、均匀分布和指数分布模拟结果趋向于0.05.但是当样本量较小时，卡方分布和指数分布的第一类错误模拟值与显著性水平0.05差异较大。因此利用蒙特卡罗模拟研究当抽样总体是非正态时，t检验的经验I型错误率是否近似等于名义显著性水平α。以上三个分布是轻微偏离正态的，则说明t检验对于轻微偏离正态是稳健的。
+
+## Question 
+**补充题：**在Stratified sampling中，我们有$$\operatorname{Var}\left(\hat{\theta}^M\right)=\frac{1}{M k} \sum_{i=1}^k \sigma_i^2+\frac {\operatorname{Var}\left(\theta_I\right)}{M}=\operatorname{Var}\left(\hat{\theta}^S\right)+\frac {\operatorname{Var}\left(\theta_I\right)}{M}$$ where $$\theta_i=E[g(U) \mid I=i], \sigma_i^2=\operatorname{Var}[g(U) \mid I=i]$$and $I$ takes uniform distribution over $\{1, \ldots, k\}$.
+\
+Proof that if g is a continuous function over (a, b), then ${Var}\left(\hat{\theta}^S\right) / {Var}\left(\hat{\theta}^M\right)$ → 0 as $b_i − a_i$ → 0 for all i = 1, . . . , k.
+
+## Answer
+在分层估计下，估计量所对应的方差为$$Var(\hat{\theta}^S)=\frac {1}{MK}\sum_{i=1}^k \sigma_i^2=\frac {1}{MK}\sum_{i=1}^kVar[g(u)|I=i]$$
+由于$b_i-a_i→0$，代表做分层的时候，区间趋于无穷小。已知在目标函数为阶梯函数的时候，估计量对应的方差为0。这是因为$$\hat\theta=\int_a^b g(x)dx=E(g(x)(b-a))=\sum_{i=1}^kg_i(b_i-a_i)$$它是一个常数，因此对应的方差为$Var(\hat\theta)=0.$同理，当每个区间的区间长度趋于无穷小时，可以近似的认为在区间$(a_i,b_i)$是取值趋于平稳的一个值，不妨令$g_i(x)=g(a_i)$,即取左端点的值。则有$$\hat\theta^{new}=\int_a^b g(x)dx=E(g(x)(b-a))=\sum_{i=1}^kg(a_i)(b_i-a_i)$$
+可知此时有$Var(\hat\theta^{new})=0$，
+\
+又因为当$b_i-a_i→0$
+时，$Var(\hat\theta^S)→Var(\hat\theta^{new})=0$, ${Var}\left(\hat{\theta}^M\right)\ne0$因此${Var}\left(\hat{\theta}^S\right) / {Var}\left(\hat{\theta}^M\right)$ → 0

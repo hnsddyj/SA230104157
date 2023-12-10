@@ -1,0 +1,189 @@
+---
+title: "Homework-10.30"
+author: "丁婧琦"
+date: "2023-10-30"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Question
+Implement the two-sample Cramér-von Mises test for equal distributions as a permutation test. Apply the test to the data in Examples 8.1 and 8.2.
+
+## Answer
+Two-sample tests for univariate data：Cramer-von Mises statistic.The Cramér-von Mises statistic, which estimates the integrated
+squared distance between the distributions, is defined by
+$$W_2=\frac{m n}{(m+n)^2}\left[\sum_{i=1}^n\left(F_n\left(x_i\right)-G_m\left(x_i\right)\right)^2+\sum_{j=1}^m\left(F_n\left(y_j\right)-G_m\left(y_j\right)\right)^2\right]$$
+Fn: the ecdf of the sample x1, . . . , xn; Gm: the ecdf of the sample y1, . . . , ym.
+\
+Apply the test to the data in Examples 8.1 and 8.2.
+```{r}
+attach(chickwts)
+x <- sort(as.vector(weight[feed == "soybean"]))
+y <- sort(as.vector(weight[feed == "linseed"]))
+detach(chickwts)
+cat(x,'\n')
+cat(y,'\n')
+
+n<-length(x)
+m<-length(y)
+cvmtest <- function(x,y){
+#样本x1到xn的ecdf
+fn<-function(a){
+  flag1<-0
+  for(i in 1:length(x)){
+    if(x[i]<=a)
+      flag1 <- flag1+1
+  }
+  return(flag1/length(x))
+}
+#样本y1到ym的ecdf
+gm<-function(b){
+  flag2<-0
+  for(j in 1:length(y)){
+    if(y[j]<=b)
+      flag2 <- flag2+1
+  }
+  return(flag2/length(y))
+}
+#统计量W2
+sum1<-sum2<-0
+for(i in 1:n){
+  sum1<-sum1+(fn(x[i])-gm(x[i]))^2
+}
+for(j in 1:m){
+  sum2<-sum2+(fn(y[j])-gm(y[j]))^2
+}
+W2<-(sum1+sum2)*m*n/(m+n)^2  
+return(W2)
+}
+
+R <- 999 #number of replicates
+z <- c(x, y) #pooled sample
+K <- 1:26
+W2 <- numeric(R) #storage for replicates
+W20 <- cvmtest(x,y)
+for (i in 1:R) {
+#generate indices k for the first sample
+k <- sample(K, size = 14, replace = FALSE)
+x1 <- z[k]
+y1 <- z[-k] #complement of x1
+W2[i] <- cvmtest(x1,y1)
+}
+p <- mean(c(W20, W2) >= W20)
+p
+```
+
+## Question
+
+The Count 5 test for equal variances in Section 6.4 is based on the maximum number of extreme points. Example 6.15 shows that the Count 5 criterion is not applicable for unequal sample sizes. Implement a permutation test for equal variance based on the maximum number of extreme points that applies when sample sizes are not necessarily equal.
+
+## Answer
+McGrath和Yeh引入的两样本“Count Five”方差相等检验计算每个样本相对于另一个样本的极值点的数量。假设两个样本的均值相等，样本容量相等。如果一个样本中的观察结果不在另一个样本的范围内，则认为是极端的。如果任一样本有五个或五个以上的极值点，则拒绝等方差假设。
+
+```{r}
+set.seed(1234)
+# Count 5 test
+COUNT5test = function(x, y) {
+X = x - mean(x)
+Y = y - mean(y)
+OUTx = sum(X > max(Y)) + sum(X < min(Y))#统计极值点
+OUTy = sum(Y > max(X)) + sum(Y < min(X))
+return(as.integer(max(c(OUTx, OUTy)) > 5))# 返回1 则拒绝等方差的原假设，返回0则不能拒绝等方差的假设
+}
+```
+
+根据Count 5 test写出Count 5 test permutation
+```{r}
+# Count 5 test permutation
+COUNT5test_permutation = function(a) {
+n = length(a)
+x = a[1:(n/2)]
+y = a[-(1:(n/2))]
+X = x - mean(x)
+Y = y - mean(y)
+OUTx = sum(X > max(Y)) + sum(X < min(Y)) 
+OUTy = sum(Y > max(X)) + sum(Y < min(X))# 返回1 则拒绝等方差的原假设，返回0则不能拒绝等方差的假设
+return(as.integer(max(c(OUTx, OUTy)) > 5))
+}
+
+permutation = function(a,R) {
+  n = length(a)
+  result = numeric(R)
+  for (r in 1: R){
+      i = sample(1:n ,n ,replace = FALSE)
+      result[r] = COUNT5test_permutation(z[i])
+  }
+  sum(result)/R
+}              
+```
+
+Example 6.15 shows that the Count 5 criterion is not applicable for unequal sample sizes.We are estimating the empirical Type I error
+rate when sample sizes differ and the “Count Five Permutation” test criterion is applied. Each sample is centered by subtracting the sample mean.
+```{r}
+n1 <- 20
+n2 <- 50
+mu1 <- mu2 <- 0
+sigma1 <- sigma2 <- 1
+m = 10000
+
+Alphahat1 = mean(replicate(m, expr={
+x = rnorm(n1, mu1, sigma1)
+y = rnorm(n2, mu2, sigma2)
+x = x - mean(x) #centered by sample mean
+y = y - mean(y)
+COUNT5test(x, y)
+}))
+
+Alphahat2 = mean(replicate(m, expr={
+x = rnorm(n1, mu1, sigma1)
+y = rnorm(n2, mu2, sigma2)
+x = x - mean(x) #centered by sample mean 
+y = y - mean(y)
+z = c(x,y)
+permutation(z,1000) 
+})<0.05)
+
+round(c(COUNT5test=Alphahat1,COUNT5test_permutation=Alphahat2),5)
+```
+由结果可知，Count 5 test 的显著性水平远高于Count 5 permutation的显著性水平。
+
+## Question
+Proof the Stationarity of Metropolis-Hastings sampler Algorithm in continuous situation.
+
+## Answer
+在连续的情况下，Metropolis-Hastings Algorithm的具体式子如下：
+\
+1.Target pdf: f(x)
+\
+2.proposal distribution:g(r|s)
+\
+3.acceptance probability:$\alpha(s,r)=min({\frac {f(r)g(s|r)}{f(s)g(r|s)},1})$
+\
+4.transition kernel:$K(s,r)=\alpha(r,s)g(s|r)+I(s=r)[1-\int\alpha(r,s)g(s|r)ds]$
+\
+5.stationarity:$K(s,r)f(s)=K(r,s)f(r)$
+\
+（一）当r=s时，显然有$K(s,r)f(s)=K(r,s)f(r)$
+\
+（二）当r≠s时，
+$$K(s,r)f(s)=\alpha(s,r)g(r|s)f(s)=min({\frac {f(r)g(s|r)}{f(s)g(r|s)},1})g(r|s)f(s)$$
+则$K(s,r)f(s)$的值为:
+\left\{\begin{matrix}
+  & g(s|r)f(s)\quad f(s)g(r|s)\leq f(r)g(s|r)\\
+  &f(r)g(s|r)\quad  f(r)g(s|r)\leq f(s)g(r|s)
+\end{matrix}\right.
+\
+
+$$K(r,s)f(r)=\alpha(r,s)g(s|r)f(r)=min({\frac {f(s)g(r|s)}{f(r)g(s|r)},1})g(s|r)f(r)$$
+则$K(r,s)f(r)$的值为:
+\left\{\begin{matrix}
+  & g(s|r)f(s)\quad f(s)g(r|s)\leq f(r)g(s|r)\\
+  &f(r)g(s|r)\quad  f(r)g(s|r)\leq f(s)g(r|s)
+\end{matrix}\right.
+因此，可得$K(r,s)f(r)=K(s,r)f(s)$,这说明连续情况下Metropolis-Hastings sampler 算法仍然具有平稳性。

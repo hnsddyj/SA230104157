@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="丁婧琦" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Homework-10.30</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-10.30</h1>
+<h4 class="author">丁婧琦</h4>
+<h4 class="date">2023-10-30</h4>
+
+
+
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p>Implement the two-sample Cramér-von Mises test for equal
+distributions as a permutation test. Apply the test to the data in
+Examples 8.1 and 8.2.</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>Two-sample tests for univariate data：Cramer-von Mises statistic.The
+Cramér-von Mises statistic, which estimates the integrated squared
+distance between the distributions, is defined by <span class="math display">\[W_2=\frac{m
+n}{(m+n)^2}\left[\sum_{i=1}^n\left(F_n\left(x_i\right)-G_m\left(x_i\right)\right)^2+\sum_{j=1}^m\left(F_n\left(y_j\right)-G_m\left(y_j\right)\right)^2\right]\]</span>
+Fn: the ecdf of the sample x1, . . . , xn; Gm: the ecdf of the sample
+y1, . . . , ym.<br />
+Apply the test to the data in Examples 8.1 and 8.2.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">attach</span>(chickwts)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">as.vector</span>(weight[feed <span class="sc">==</span> <span class="st">&quot;soybean&quot;</span>]))</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">as.vector</span>(weight[feed <span class="sc">==</span> <span class="st">&quot;linseed&quot;</span>]))</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">detach</span>(chickwts)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">cat</span>(x,<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>## 158 171 193 199 230 243 248 248 250 267 271 316 327 329</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">cat</span>(y,<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>## 141 148 169 181 203 213 229 244 257 260 271 309</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="fu">length</span>(x)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="fu">length</span>(y)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>cvmtest <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y){</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#样本x1到xn的ecdf</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>fn<span class="ot">&lt;-</span><span class="cf">function</span>(a){</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  flag1<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)){</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="cf">if</span>(x[i]<span class="sc">&lt;=</span>a)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>      flag1 <span class="ot">&lt;-</span> flag1<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  }</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="fu">return</span>(flag1<span class="sc">/</span><span class="fu">length</span>(x))</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>}</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#样本y1到ym的ecdf</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>gm<span class="ot">&lt;-</span><span class="cf">function</span>(b){</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>  flag2<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y)){</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="cf">if</span>(y[j]<span class="sc">&lt;=</span>b)</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>      flag2 <span class="ot">&lt;-</span> flag2<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>  }</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>  <span class="fu">return</span>(flag2<span class="sc">/</span><span class="fu">length</span>(y))</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>}</span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#统计量W2</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>sum1<span class="ot">&lt;-</span>sum2<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>  sum1<span class="ot">&lt;-</span>sum1<span class="sc">+</span>(<span class="fu">fn</span>(x[i])<span class="sc">-</span><span class="fu">gm</span>(x[i]))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>}</span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>  sum2<span class="ot">&lt;-</span>sum2<span class="sc">+</span>(<span class="fu">fn</span>(y[j])<span class="sc">-</span><span class="fu">gm</span>(y[j]))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>}</span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>W2<span class="ot">&lt;-</span>(sum1<span class="sc">+</span>sum2)<span class="sc">*</span>m<span class="sc">*</span>n<span class="sc">/</span>(m<span class="sc">+</span>n)<span class="sc">^</span><span class="dv">2</span>  </span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="fu">return</span>(W2)</span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>}</span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">999</span> <span class="co">#number of replicates</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y) <span class="co">#pooled sample</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">26</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a>W2 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(R) <span class="co">#storage for replicates</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a>W20 <span class="ot">&lt;-</span> <span class="fu">cvmtest</span>(x,y)</span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#generate indices k for the first sample</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">sample</span>(K, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> z[k]</span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> z[<span class="sc">-</span>k] <span class="co">#complement of x1</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a>W2[i] <span class="ot">&lt;-</span> <span class="fu">cvmtest</span>(x1,y1)</span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a>}</span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(W20, W2) <span class="sc">&gt;=</span> W20)</span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a>p</span></code></pre></div>
+<pre><code>## [1] 0.414</code></pre>
+</div>
+<div id="question-1" class="section level2">
+<h2>Question</h2>
+<p>The Count 5 test for equal variances in Section 6.4 is based on the
+maximum number of extreme points. Example 6.15 shows that the Count 5
+criterion is not applicable for unequal sample sizes. Implement a
+permutation test for equal variance based on the maximum number of
+extreme points that applies when sample sizes are not necessarily
+equal.</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<p>McGrath和Yeh引入的两样本“Count
+Five”方差相等检验计算每个样本相对于另一个样本的极值点的数量。假设两个样本的均值相等，样本容量相等。如果一个样本中的观察结果不在另一个样本的范围内，则认为是极端的。如果任一样本有五个或五个以上的极值点，则拒绝等方差假设。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># Count 5 test</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>COUNT5test <span class="ot">=</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>X <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>Y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>OUTx <span class="ot">=</span> <span class="fu">sum</span>(X <span class="sc">&gt;</span> <span class="fu">max</span>(Y)) <span class="sc">+</span> <span class="fu">sum</span>(X <span class="sc">&lt;</span> <span class="fu">min</span>(Y))<span class="co">#统计极值点</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>OUTy <span class="ot">=</span> <span class="fu">sum</span>(Y <span class="sc">&gt;</span> <span class="fu">max</span>(X)) <span class="sc">+</span> <span class="fu">sum</span>(Y <span class="sc">&lt;</span> <span class="fu">min</span>(X))</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">as.integer</span>(<span class="fu">max</span>(<span class="fu">c</span>(OUTx, OUTy)) <span class="sc">&gt;</span> <span class="dv">5</span>))<span class="co"># 返回1 则拒绝等方差的原假设，返回0则不能拒绝等方差的假设</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>}</span></code></pre></div>
+<p>根据Count 5 test写出Count 5 test permutation</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Count 5 test permutation</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>COUNT5test_permutation <span class="ot">=</span> <span class="cf">function</span>(a) {</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(a)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>x <span class="ot">=</span> a[<span class="dv">1</span><span class="sc">:</span>(n<span class="sc">/</span><span class="dv">2</span>)]</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>y <span class="ot">=</span> a[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span>(n<span class="sc">/</span><span class="dv">2</span>))]</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>X <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>Y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>OUTx <span class="ot">=</span> <span class="fu">sum</span>(X <span class="sc">&gt;</span> <span class="fu">max</span>(Y)) <span class="sc">+</span> <span class="fu">sum</span>(X <span class="sc">&lt;</span> <span class="fu">min</span>(Y)) </span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>OUTy <span class="ot">=</span> <span class="fu">sum</span>(Y <span class="sc">&gt;</span> <span class="fu">max</span>(X)) <span class="sc">+</span> <span class="fu">sum</span>(Y <span class="sc">&lt;</span> <span class="fu">min</span>(X))<span class="co"># 返回1 则拒绝等方差的原假设，返回0则不能拒绝等方差的假设</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">as.integer</span>(<span class="fu">max</span>(<span class="fu">c</span>(OUTx, OUTy)) <span class="sc">&gt;</span> <span class="dv">5</span>))</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>}</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>permutation <span class="ot">=</span> <span class="cf">function</span>(a,R) {</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(a)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">numeric</span>(R)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  <span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span> R){</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>      i <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n ,n ,<span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>      result[r] <span class="ot">=</span> <span class="fu">COUNT5test_permutation</span>(z[i])</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  }</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>  <span class="fu">sum</span>(result)<span class="sc">/</span>R</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>}              </span></code></pre></div>
+<p>Example 6.15 shows that the Count 5 criterion is not applicable for
+unequal sample sizes.We are estimating the empirical Type I error rate
+when sample sizes differ and the “Count Five Permutation” test criterion
+is applied. Each sample is centered by subtracting the sample mean.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> mu2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> sigma2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>Alphahat1 <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">replicate</span>(m, <span class="at">expr=</span>{</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rnorm</span>(n1, mu1, sigma1)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(n2, mu2, sigma2)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>x <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="co">#centered by sample mean</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="fu">COUNT5test</span>(x, y)</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>}))</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>Alphahat2 <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">replicate</span>(m, <span class="at">expr=</span>{</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rnorm</span>(n1, mu1, sigma1)</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(n2, mu2, sigma2)</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>x <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="co">#centered by sample mean </span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">c</span>(x,y)</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="fu">permutation</span>(z,<span class="dv">1000</span>) </span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>})<span class="sc">&lt;</span><span class="fl">0.05</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">COUNT5test=</span>Alphahat1,<span class="at">COUNT5test_permutation=</span>Alphahat2),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##             COUNT5test COUNT5test_permutation 
+##                 0.2981                     NA</code></pre>
+<p>由结果可知，Count 5 test 的显著性水平远高于Count 5
+permutation的显著性水平。</p>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question</h2>
+<p>Proof the Stationarity of Metropolis-Hastings sampler Algorithm in
+continuous situation.</p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+在连续的情况下，Metropolis-Hastings Algorithm的具体式子如下：<br />
+1.Target pdf: f(x)<br />
+2.proposal distribution:g(r|s)<br />
+3.acceptance probability:<span class="math inline">\(\alpha(s,r)=min({\frac
+{f(r)g(s|r)}{f(s)g(r|s)},1})\)</span><br />
+4.transition kernel:<span class="math inline">\(K(s,r)=\alpha(r,s)g(s|r)+I(s=r)[1-\int\alpha(r,s)g(s|r)ds]\)</span><br />
+5.stationarity:<span class="math inline">\(K(s,r)f(s)=K(r,s)f(r)\)</span><br />
+（一）当r=s时，显然有<span class="math inline">\(K(s,r)f(s)=K(r,s)f(r)\)</span><br />
+（二）当r≠s时， <span class="math display">\[K(s,r)f(s)=\alpha(s,r)g(r|s)f(s)=min({\frac
+{f(r)g(s|r)}{f(s)g(r|s)},1})g(r|s)f(s)\]</span> 则<span class="math inline">\(K(s,r)f(s)\)</span>的值为: {
+<span class="math display">\[\begin{matrix}
+  &amp; g(s|r)f(s)\quad f(s)g(r|s)\leq f(r)g(s|r)\\
+  &amp;f(r)g(s|r)\quad  f(r)g(s|r)\leq f(s)g(r|s)
+\end{matrix}\]</span>
+<p>.<br />
+</p>
+<span class="math display">\[K(r,s)f(r)=\alpha(r,s)g(s|r)f(r)=min({\frac
+{f(s)g(r|s)}{f(r)g(s|r)},1})g(s|r)f(r)\]</span> 则<span class="math inline">\(K(r,s)f(r)\)</span>的值为: {
+<span class="math display">\[\begin{matrix}
+  &amp; g(s|r)f(s)\quad f(s)g(r|s)\leq f(r)g(s|r)\\
+  &amp;f(r)g(s|r)\quad  f(r)g(s|r)\leq f(s)g(r|s)
+\end{matrix}\]</span>
+<p>. 因此，可得<span class="math inline">\(K(r,s)f(r)=K(s,r)f(s)\)</span>,这说明连续情况下Metropolis-Hastings
+sampler 算法仍然具有平稳性。</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

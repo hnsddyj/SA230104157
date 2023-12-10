@@ -1,0 +1,131 @@
+---
+title: "Homework-2023.11.20"
+author: "丁婧琦"
+date: "2023-11-20"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question
+设$X_1,...,X_n$独立同分布与EXP($\lambda$)。因为某种原因，只知道$X_i$落在某个区间($u_i,v_i$),其中$u_i<v_i$是两个非随机的已知常数，这种数据称为区间删失数据。
+（1）试分别直接极大化观测数据的似然函数与采用EM算法求解$\lambda$的MLE，证明EM算法收敛域观测数据的MLE，且收敛有线性速度。
+（2）设($u_i,v_i$),i=1,...,n的观测值为(11,12),(8,9),(27,28),(13.14),(16,17),(0,1),(23,24),(10,11),(24,25),(2,3)试分别编程实现上述两种算法来得到$\lambda$的MLE的数值解。
+
+
+## Answer
+（1）取自该总体的样本容量为n的样本的一组观测数据，则观测数据的似然函数为$$L(\lambda)=\prod_{i=1}^{n}P_v(u_i\le X_i\le v_i)=\prod_{i=1}^{n}(-e^{-\lambda v_i}+e^{-\lambda u_i})$$
+对似然函数取对数可得$$LnL(\lambda)=\sum_{i=1}^{n}ln(-e^{-\lambda v_i}+e^{-\lambda u_i})$$
+$$\frac{ \partial LnL(\lambda) }{ \partial \lambda }=\sum_{i=1}^{n}ln(e^{-\lambda v_i}+e^{-\lambda u_i})$$
+令$\frac{ \partial LnL(\lambda) }{ \partial \lambda }=0$,可得$$\sum_{i=1}^{n}\frac{ u_ie^{-\lambda x_i}-v_ie^{-\lambda v_i}}{e^{-\lambda u_i}-e^{-\lambda v_i}}=0$$.采用极大似然法可以求得$\lambda$的估计为,则$\hat \lambda _{MLE}$是满足该方程的解。
+\
+把观测数据$((u_i,v_i))^n_{i=1}$扩充为$((u_i,v_i),x_i)^n_{i=1}$,其中$u_i<x_i<v_i$。
+扩充后的似然函数为$L(\lambda)=\prod_{i=1}^{n}\frac{\lambda e^{-\lambda}}{e^{-\lambda u_i}-e^{-\lambda v_i}}$,采用EM算法对其求解。
+\
+设$\hat \lambda_0$为起始值，$\hat \lambda_i$为第i次迭代的估计值。
+\
+E步：首先求$E_{\hat \lambda_i}[L(\lambda)|{(u_i,v_i)^n_{i=1}}]=nln\lambda-\sum_{i=1}^{n}E_{\hat \lambda_i}(x_i\lambda)-\sum_{i=1}^{n}ln(e^{-\lambda u_i-e^{-\lambda v_i}})$
+其中，$E_{\hat \lambda_i}=\int_{u_i}^{v_i}x \frac {\hat \lambda_i e^{-\hat \lambda_ix}}{e^{-\hat \lambda_iu_i}-e^{-\hat \lambda_iv_i}}dx$
+\
+M步：$\frac{n}{\lambda}-\sum_{i=1}^{n}E_{\hat \lambda_i}(x_i)+\sum_{i=1}^n \frac{u_i e^{-\lambda u_i}-v_i e^{-\lambda v_i}}{e^{-\lambda u_i}-e^{-\lambda v_i}}=0$,并且有$\hat \lambda _{i+1}$是该方程的解。
+同时，上式也的写成 $\frac{n}{\lambda}+\sum_{i=1}^n \frac{u_i e^{-\lambda u_i}-v_i e^{-\lambda v_i}}{e^{-\lambda u_i}-e^{-\lambda v_i}}=\frac{n}{\hat{\lambda}_k}+\sum_{i=1}^n \frac{u_i e^{-\lambda_k u_i}-v_i e^{-\lambda_k v_i}}{e^{-\hat{\lambda}_k u_i}-e^{-\hat{\lambda}_k v_i}}$,因此，EM算法得到的解收敛于M。
+
+（2）利用似然函数与采用EM算法来得到$\lambda$的MLE的数值解
+```{r}
+U <- c(11,8,27,13,16,0,23,10,24,2)
+V <- c(12,9,28,14,17,1,24,11,25,3)
+l <- function(Lambda){
+  l <- 0
+  for (i in 1:10){
+    n <- max(1.5e-5,pexp(V[i],rate = Lambda)-pexp(U[i],rate = Lambda))
+    l <- l + log(n)
+  }
+  return(l)
+}
+
+optimize(l,lower=1e-3,upper=5,maximum=T)
+
+EX <- function(u,v,lambda){
+  b = u*exp(-lambda*u)-v*exp(-lambda*v)+(exp(-lambda*u)-exp(-lambda*v))/lambda
+  a = pexp(v,lambda)-pexp(u,lambda)
+  return(b/a)
+}
+
+EM <- function(u,v,max.it=1e4){
+  Lambda1 = 10
+  Lambda2 = 1
+  y = numeric(10)
+  while (abs(Lambda1-Lambda2) >= 1.5e-5) {
+    Lambda1 = Lambda2
+    for (i in 1:10) {
+      y[i] = EX(u[i],v[i],Lambda1)
+    }
+    Lambda2 = 10/sum(y)
+  }
+  return(Lambda2)
+}
+EM(U,V)
+```
+
+
+## Question
+In the Morra game, the set of optimal strategies are not changed if a constant is subtracted from every entry of the payoff matrix, or a positive constant is multiplied times every entry of the payoff matrix. However, the simplex algorithm may terminate at a different basic feasible point (also optimal).Compute B <- A + 2, find the solution of game B, and verify that it is one of the extreme points (11.12)–(11.15) of the original game A. Also find the value of game A and game B.
+
+
+## Answer
+```{r}
+solve.game <- function(A) {
+  min_A <- min(A)
+  A <- A - min_A #so that v >= 0
+  max_A <- max(A)
+  A <- A / max(A)
+  m <- nrow(A)
+  n <- ncol(A)
+  it <- n^3
+  a <- c(rep(0, m), 1) #objective function
+  A1 <- -cbind(t(A), rep(-1, n)) #constraints <=
+  b1 <- rep(0, n)
+  A3 <- t(as.matrix(c(rep(1, m), 0))) #constraints sum(x)=1
+  b3 <- 1
+  sx <- simplex(a=a, A1=A1, b1=b1, A3=A3, b3=b3,
+                maxi=TRUE, n.iter=it)
+  #the ’solution’ is [x1,x2,...,xm | value of game]
+  #
+  #minimize v subject to ...
+  #let y strategies 1:n, with v as extra variable
+  a <- c(rep(0, n), 1) #objective function
+  A1 <- cbind(A, rep(-1, m)) #constraints <=
+  b1 <- rep(0, m)
+  A3 <- t(as.matrix(c(rep(1, n), 0))) #constraints sum(y)=1
+  b3 <- 1
+  sy <- simplex(a=a, A1=A1, b1=b1, A3=A3, b3=b3,
+                maxi=FALSE, n.iter=it)
+  soln <- list("A" = A * max_A + min_A,
+               "x" = sx$soln[1:m],
+               "y" = sy$soln[1:n],
+               "v" = sx$soln[m+1] * max_A + min_A)
+soln
+}
+A <- matrix(c( 0,-2,-2,3,0,0,4,0,0,
+               2,0,0,0,-3,-3,4,0,0,
+               2,0,0,3,0,0,0,-4,-4,
+               -3,0,-3,0,4,0,0,5,0,
+               0,3,0,-4,0,-4,0,5,0,
+               0,3,0,0,4,0,-5,0,-5,
+               -4,-4,0,0,0,5,0,0,6,
+               0,0,4,-5,-5,0,0,0,6,
+               0,0,4,0,0,5,-6,-6,0), 9, 9)
+library(boot) #needed for simplex function
+S <- solve.game(A+2)
+round(cbind(S$x, S$y), 7)
+S$v
+#通过输入收益矩阵A运行结果符合11.15这条结论，收益为0；B<-A+2运行结果符合11.15这条结论，收益为2；
+
+
+```

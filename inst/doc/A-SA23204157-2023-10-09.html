@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="丁婧琦" />
+
+<meta name="date" content="2023-10-09" />
+
+<title>Homework-2023-10.09</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2023-10.09</h1>
+<h4 class="author">丁婧琦</h4>
+<h4 class="date">2023-10-09</h4>
+
+
+
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p><strong>Exercises 5.13:</strong>Find two importance functions f1 and
+f2 that are supported on (1, ∞) and are ‘close’ to <span class="math display">\[g(x) = \frac{x^2}{\sqrt{2π}}e^{−x^2/2}, x&gt;
+1.\]</span> Which of your two importance functions should produce the
+smaller variance in estimating <span class="math display">\[\int_1^\infty
+\frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx\]</span> by importance sampling?
+Explain.</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>根据函数g(x)，选取分布与g(x)较为相似的四个importance function 如下：
+<span class="math display">\[f_1(x)=\frac {x}{4}e^{-\frac
+x2},x&gt;0\]</span> <span class="math display">\[f_2(x)= {4x^2}e^{-\frac
+{x}{2}},x&gt;0\]</span> <span class="math display">\[f_3(x)=\frac
+{x}{\sqrt{2\pi}}e^{-\frac {x}{2}}\]</span> <span class="math display">\[f_4(x)=\frac {x}{\sqrt{2\pi}}e^{-\frac
+{x^2+1}{2}}\]</span> 分别绘制出，<span class="math inline">\(g(x),f_1(x),f_2(x),f_4(x)\)</span>的图像如下：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#绘制四个图像</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="fl">0.01</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>g<span class="ot">&lt;-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>f1<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>f2<span class="ot">&lt;-</span><span class="dv">4</span><span class="sc">*</span>(x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>f3<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fu">exp</span>((<span class="sc">-</span>x)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>f4<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fu">exp</span>((<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>gs<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">expression</span>(<span class="fu">g</span>(x)<span class="sc">==</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">1</span>)),</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>            <span class="fu">expression</span>(f[<span class="dv">1</span>](x)<span class="sc">==</span>x<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)),</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>            <span class="fu">expression</span>(f[<span class="dv">2</span>](x)<span class="sc">==</span><span class="dv">4</span>(x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>            <span class="fu">expression</span>(f[<span class="dv">3</span>](x)<span class="sc">==</span>x<span class="sc">*</span><span class="fu">exp</span>((<span class="sc">-</span>x)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)),</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>            <span class="fu">expression</span>(f[<span class="dv">4</span>](x)<span class="sc">==</span>x<span class="sc">*</span><span class="fu">exp</span>((<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)))</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">plot</span>(x, g,<span class="at">type =</span> <span class="st">&quot;l&quot;</span>,<span class="at">main=</span><span class="st">&quot;g(x)和fi(x)的图像&quot;</span>,<span class="at">ylab=</span><span class="st">&#39;&#39;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.6</span>),<span class="at">lwd =</span> <span class="fl">1.5</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">lines</span>(x,f1,<span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">lines</span>(x,f2,<span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">lines</span>(x,f3,<span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="fu">lines</span>(x,f4,<span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">5</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> gs, <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">inset =</span> <span class="fl">0.02</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --><br />
+为了比较哪个importance function会产生更小的方差，比较<span class="math inline">\(\frac
+{g(x)}{f_i(x)}\)</span>中哪项更加平稳（及波动更小）</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#绘制g(x)/fi(x)的图像</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">plot</span>(x, g<span class="sc">/</span>f1, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,<span class="at">main=</span><span class="st">&quot;g(x)/fi(x)的图像&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">15</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="fu">lines</span>(x, g<span class="sc">/</span>f2, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="fu">lines</span>(x, g<span class="sc">/</span>f3, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="fu">lines</span>(x, g<span class="sc">/</span>f4, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>,<span class="at">col=</span><span class="dv">5</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> gs,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>           <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">inset =</span> <span class="fl">0.02</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --><br />
+由图像可知，函数<span class="math inline">\(f_1(x)、f_2(x)和f_3(x)\)</span>所对应的比值波动较小。
+从函数图像上来看<span class="math inline">\(f_1(x)、f_2(x)和f_3(x)\)</span>在估计的时候均会对应产生较小的方差，因此需要进行进一步的模拟才能知道哪个会产生更小的方差。</p>
+</div>
+<div id="question-1" class="section level2">
+<h2>Question</h2>
+<p><strong>Exercises 5.14:</strong>Obtain a Monte Carlo estimate of
+<span class="math display">\[\int_1^\infty
+\frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx\]</span> by importance sampling.</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<p>由于函数<span class="math inline">\(f_1(x),f_2(x)和f_3(x)\)</span>对应比值波动较为接近，但函数<span class="math inline">\(f_3(x)\)</span>的随机数不容易产生，因此可以选取<span class="math inline">\(f_1(x)和f_2(x)\)</span>来进行蒙特卡罗模拟。模拟值可以通过
+<span class="math display">\[\hat\theta=\frac 1m \sum_{i=1}^m\frac
+{g(x_i)}{f_1(x)}\]</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10000</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>h1<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  g<span class="ot">&lt;-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  f1<span class="ot">&lt;-</span>x<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  h<span class="ot">&lt;-</span>g<span class="sc">/</span>f1</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">return</span>(h)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>h2<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  g<span class="ot">&lt;-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  f2<span class="ot">&lt;-</span><span class="dv">4</span><span class="sc">*</span>(x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  h<span class="ot">&lt;-</span>g<span class="sc">/</span>f2</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  <span class="fu">return</span>(h)</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>}</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#生成服从f1的随机数</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">rgamma</span>(n,<span class="dv">2</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>y1<span class="ot">&lt;-</span><span class="fu">h1</span>(v)</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>mean1<span class="ot">&lt;-</span><span class="fu">mean</span>(y1)</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>sd1<span class="ot">&lt;-</span><span class="fu">sd</span>(y1)</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>mean1</span></code></pre></div>
+<pre><code>## [1] 0.3898784</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>sd1</span></code></pre></div>
+<pre><code>## [1] 0.5865536</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#生成服从f2的随机数</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>u<span class="ot">&lt;-</span><span class="fu">rgamma</span>(n,<span class="dv">3</span>,<span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>y2<span class="ot">&lt;-</span><span class="fu">h2</span>(u)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>mean2<span class="ot">&lt;-</span><span class="fu">mean</span>(y2)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>sd2<span class="ot">&lt;-</span><span class="fu">sd</span>(y2)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>mean2</span></code></pre></div>
+<pre><code>## [1] 0.4006459</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>sd2</span></code></pre></div>
+<pre><code>## [1] 0.3024057</code></pre>
+<p>因此，通过比较两者均值可以发现如果采用<span class="math inline">\(f_1(x)\)</span>进行模拟,对应的标准差更大，从之前的图像也可以看出<span class="math inline">\(f_2(x)\)</span>在图像上更接近真实的g(x)。因此选取<span class="math inline">\(f_2(x)\)</span>进行模拟更为合理。可得<span class="math inline">\(f_2(x)\)</span>积分的蒙特卡罗估计值约为0.4006459，估计值的标准差约为0.3024057。</p>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question</h2>
+<p><strong>Exercises 5.15:</strong>Obtain the stratified importance
+sampling estimate in Example 5.13 and compare it with the result of
+Example 5.10.</p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+对exercise 5.13进行分层抽样。<br />
+首先，利用stratified importance sampling来估计<span class="math display">\[g(x) =\int_1^\infty
+\frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx.\]</span> 利用stratified importance
+sampling进行计算的思路如下： 首先，将积分进行变量替换令<span class="math inline">\(x=\frac
+1t\)</span>将这个无穷积分转化到(0,1)区间上： <span class="math display">\[g(x) =\int_1^\infty
+\frac{x^2}{\sqrt{2π}}e^{−x^2/2}dx=-\int_0^1\frac
+1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt.\]</span>
+将这个积分进行如下处理：
+<span class="math display">\[\begin{aligned}
+\int_0^1\frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt &amp;
+=\sum_{i=1}^k \int_0^1\frac 1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}dt \\
+&amp; =\frac{1}{k} \sum_{i=1}^k \int_{(i-1) / k}^{i / k} \frac
+1{t^4\sqrt{2\pi}}e^{-\frac {1}{2t^2}}k dt \\
+&amp; =\frac{1}{k} \sum_{i=1}^k E\frac {e^{-\frac
+{1}{{X_i}^2}}}{{X_i}^4\sqrt{2\pi}}, \\
+&amp; \text { where } X_i \sim U((i-1) / k, i / k) .
+\end{aligned}\]</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span><span class="co">#k为分割的大小</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>r <span class="ot">&lt;-</span> M<span class="sc">/</span>k </span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span> </span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>T2 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, N, <span class="dv">2</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>g<span class="ot">&lt;-</span><span class="cf">function</span>(x)<span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(x<span class="sc">^</span><span class="dv">4</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">*</span>(x<span class="sc">&lt;</span><span class="dv">1</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  est[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">g</span>(<span class="fu">runif</span>(M)))</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k)T2[j]<span class="ot">&lt;-</span><span class="fu">mean</span>(<span class="fu">g</span>(<span class="fu">runif</span>(M<span class="sc">/</span>k,(j<span class="dv">-1</span>)<span class="sc">/</span>k,j<span class="sc">/</span>k)))</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  est[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(T2)}</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">apply</span>(est,<span class="dv">2</span>,mean),<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6351 0.6358</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">apply</span>(est,<span class="dv">2</span>,sd),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.00557 0.00068</code></pre>
+<p>根据结果可知，如果采用分层的方法进行估计，估计量的方差会显著减小。<br />
+对example 5.13进行分层抽样。将（0,1）区间划分为五个子区间(j/5, (j + 1
+)/5), j = 0, 1, . . . , 4.在第j个区间上可以得到， f_j(x)=, x </p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span> </span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">5</span><span class="co">#k为分割的大小 </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>r <span class="ot">&lt;-</span> M<span class="sc">/</span>k </span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>T1 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, N, <span class="dv">2</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>g<span class="ot">&lt;-</span><span class="cf">function</span>(x,a,b) <span class="fu">exp</span>(<span class="sc">-</span>x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span>(x<span class="sc">&gt;</span>a)<span class="sc">*</span>(x<span class="sc">&lt;</span>b)</span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>gf<span class="ot">&lt;-</span><span class="cf">function</span>(x,a,b) <span class="fu">g</span>(x,a,b)<span class="sc">/</span>(<span class="fu">exp</span>(<span class="sc">-</span>x)<span class="sc">/</span>(<span class="fu">exp</span>(<span class="sc">-</span>a)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>b)))</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>l<span class="ot">&lt;-</span><span class="cf">function</span>(u,a,b) <span class="sc">-</span><span class="fu">log</span>(<span class="fu">exp</span>(<span class="sc">-</span>a)<span class="sc">-</span>u<span class="sc">*</span>(<span class="fu">exp</span>(<span class="sc">-</span>a)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>b)))</span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>  u.imp<span class="ot">&lt;-</span><span class="fu">runif</span>(M)</span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>  u.str<span class="ot">&lt;-</span><span class="fu">runif</span>(M<span class="sc">/</span>k)</span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>  est[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">gf</span>(<span class="fu">l</span>(u.imp,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) </span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>    T1[j]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">gf</span>(<span class="fu">l</span>(u.str,(j<span class="dv">-1</span>)<span class="sc">/</span>k,j<span class="sc">/</span>k),(j<span class="dv">-1</span>)<span class="sc">/</span>k,j<span class="sc">/</span>k))</span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>  est[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(T1)</span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>}</span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(est,<span class="dv">2</span>,mean),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.52473 0.52483</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(est,<span class="dv">2</span>,sd),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.00112 0.00032</code></pre>
+<p>对比例5.10的结果，如果采用分层的方法进行估计，估计量的方差会显著减小。</p>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question</h2>
+<p><strong>Exercises 6.5:</strong>Suppose a 95% symmetric t-interval is
+applied to estimate a mean, but the sample data are non-normal. Then the
+probability that the confidence interval covers the mean is not
+necessarily equal to 0.95. Use a Monte Carlo experiment to estimate the
+coverage probability of the t-interval for random samples of <span class="math inline">\(\mathcal{X}^2(2)\)</span>data with sample size n =
+20. Compare your t-interval results with the simulation results in
+Example 6.4. (The t-interval should be more robust to departures from
+normality than the interval for variance.)</p>
+</div>
+<div id="answer-3" class="section level2">
+<h2>Answer</h2>
+<p>由题意，需要用95%的对称t置信区间来估计均值。95%的对称t置信区间为：
+<span class="math display">\[[\hat\mu-t_{0.975}(n-1)\hat\sigma/\sqrt{n},\hat\mu+t_{0.975}(n-1)\hat\sigma/\sqrt
+n]\]</span> 求confidence interval的计算方法如下： <span class="math display">\[\frac
+1m\sum_{j=1}^mI(\hat\theta_1^{(j)}\le\theta\le\hat\theta_2^{(j)})
+\]</span> 其中，<span class="math display">\[(\hat\theta_1^{(j)},\hat\theta_2^{(j)})\]</span>是指的第j次进行蒙特卡洛的的置信区间。<br />
+步骤：1.首先产生20个来自卡方分布的随机数。2.计算95%的对称置信区间,由t分布的临界表可得<span class="math inline">\(t_{0.975}(n-1)=2.093\)</span>。3.判断<span class="math inline">\(\mathcal{X}^2(2)\)</span>的均值2是否在区间中。4.重复m次,最终可计算CP值。</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">20</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="dv">1000</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>mu<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>sigma<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>flag<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>  x<span class="ot">&lt;-</span><span class="fu">rchisq</span>(n,<span class="at">df=</span><span class="dv">2</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>  mu[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(x)</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  sigma[i]<span class="ot">&lt;-</span><span class="fu">sd</span>(x)</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>  <span class="cf">if</span>(mu[i]<span class="sc">-</span><span class="fl">2.093</span><span class="sc">*</span>sigma[i]<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">20</span>)<span class="sc">&lt;=</span><span class="dv">2</span><span class="sc">&amp;</span>mu[i]<span class="sc">+</span><span class="fl">2.093</span><span class="sc">*</span>sigma[i]<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">20</span>)<span class="sc">&gt;=</span><span class="dv">2</span>){</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>  flag<span class="ot">&lt;-</span>flag<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>  }</span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>  cp<span class="ot">&lt;-</span>flag<span class="sc">/</span>m</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>}</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>  cp</span></code></pre></div>
+<pre><code>## [1] 0.909</code></pre>
+<p>计算得出cp=0.909&lt;0.95,说明这个置信区间是Liber自由的。<br />
+与exercise6.4中的结果进行比较，例6.4是假设X1，…Xn是参数未知的对数正态分布中a的随机样本。为参数µ构造95%置信区间。使用蒙特卡罗方法获得置信度水平的经验估计。</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">20</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="dv">1000</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>mu<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>sigma<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>flag<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>  x<span class="ot">&lt;-</span><span class="fu">rlnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>  mu[i]<span class="ot">&lt;-</span><span class="fu">mean</span>(x)</span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>  sigma[i]<span class="ot">&lt;-</span><span class="fu">sd</span>(x)</span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>  <span class="cf">if</span>(mu[i]<span class="sc">-</span><span class="fl">2.093</span><span class="sc">*</span>sigma[i]<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">20</span>)<span class="sc">&lt;=</span><span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">&amp;</span>mu[i]<span class="sc">+</span><span class="fl">2.093</span><span class="sc">*</span>sigma[i]<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">20</span>)<span class="sc">&gt;=</span><span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)){</span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>  flag<span class="ot">&lt;-</span>flag<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>  }</span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a>  cp<span class="ot">&lt;-</span>flag<span class="sc">/</span>m</span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a>}</span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>  cp</span></code></pre></div>
+<pre><code>## [1] 0.87</code></pre>
+<p>计算得出cp=0.878&lt;0.95，因此可得出这个置信区间是Liber自由的。由于对数正态分布是典型的偏离正态的分布，因此它例6.5中的例子，估计更为稳健。
+与example6.4进行对比，不妨假设X1，X2，…Xn也服从卡方分布。按照原先的方法来计算cp并与之前的95%的对称t置信区间进行对比。</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="dv">1000</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">20</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>ucl<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  x<span class="ot">&lt;-</span><span class="fu">rchisq</span>(n,<span class="at">df=</span><span class="dv">2</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>  ucl[i]<span class="ot">&lt;-</span>(n<span class="dv">-1</span>)<span class="sc">*</span><span class="fu">var</span>(x)<span class="sc">/</span><span class="fu">qchisq</span>(<span class="fl">0.05</span>,<span class="at">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>  y[i]<span class="ot">&lt;-</span>(ucl[i]<span class="sc">&gt;=</span><span class="dv">4</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>}</span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>cp<span class="ot">&lt;-</span><span class="fu">mean</span>(y)</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>cp</span></code></pre></div>
+<pre><code>## [1] 0.788</code></pre>
+<p>计算得出cp=0.788&lt;0.95，因此可得出这个置信区间是Liber自由的。t区间比方差区间对偏离正态性更有稳健性。
+## Question <strong>Exercises 6.A:</strong>Use Monte Carlo simulation to
+investigate whether the empirical Type I error rate of the t-test is
+approximately equal to the nominal significance level α, when the
+sampled population is non-normal. The t-test is robust to mild
+departures from normality. Discuss the simulation results for the cases
+where the sampled population is (i) <span class="math inline">\(\mathcal{X}^2(1)\)</span>, (ii) Uniform(0,2), and
+(iii) Exponential(rate=1). In each case, test H0 : µ = µ0 vs H0 : µ =
+µ0, where µ0 is the mean of <span class="math inline">\(\mathcal{X}^2(1)\)</span>, Uniform(0,2), and
+Exponential(1), respectively.</p>
+</div>
+<div id="answer-4" class="section level2">
+<h2>Answer</h2>
+<p>由题意可知，模拟 empirical Type I error rate看是否接近显著性水平<span class="math inline">\(\alpha\)</span>。第一类错误的概率可以通过蒙特卡洛方法计算，计算方法如下：
+<span class="math display">\[\frac
+1m\sum_{j=1}^mI(p_j\le\alpha)\]</span>。
+因此，需要计算出每次模拟的P值，这里不妨假设<span class="math inline">\(\alpha=0.05\)</span>。P值的计算公式如下： <span class="math display">\[P值=P_{H_0}(|T|&gt;|T^o|)=2P_{H_0}(T&gt;|T^o|)=2(1-F(T^o)).\]</span>
+为了使得结果更加客观具体，分别在这三种情况下，对样本量为10，100，1000的情况下进行模拟。三种分布对应的均值都是<span class="math inline">\(\mu_0=1\)</span>。</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)<span class="co">#样本容量</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="dv">1000</span><span class="co">#试验次数</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>T0<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>Tie1<span class="ot">&lt;-</span>Tie2<span class="ot">&lt;-</span>Tie3<span class="ot">&lt;-</span><span class="fu">numeric</span>(<span class="dv">3</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>p.val1<span class="ot">&lt;-</span>p.val2<span class="ot">&lt;-</span>p.val3<span class="ot">&lt;-</span><span class="fu">numeric</span>(m)</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(n)){</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  flag1<span class="ot">&lt;-</span>flag2<span class="ot">&lt;-</span>flag3<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>  <span class="co">#1.自由度为1的卡方分布</span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>    x<span class="ot">&lt;-</span><span class="fu">rchisq</span>(n[i],<span class="dv">1</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>    T0[j]<span class="ot">&lt;-</span>(<span class="fu">mean</span>(x)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="fu">sqrt</span>(n[i])<span class="sc">/</span><span class="fu">sd</span>(x)<span class="co">#计算$T^o$</span></span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>    p.val1[j]<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fu">abs</span>(T0[j]),n[i]<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>   <span class="cf">if</span>(p.val1[j]<span class="sc">&lt;=</span><span class="fl">0.05</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>     flag1<span class="ot">&lt;-</span>flag1<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>  }</span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a>  Tie1[i]<span class="ot">&lt;-</span>flag1<span class="sc">/</span>m</span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a>  <span class="co">#2.均匀分布Uniform(0,2)</span></span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a>    x<span class="ot">&lt;-</span><span class="fu">runif</span>(n[i],<span class="dv">0</span>,<span class="dv">2</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a>    T0[j]<span class="ot">&lt;-</span>(<span class="fu">mean</span>(x)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="fu">sqrt</span>(n[i])<span class="sc">/</span><span class="fu">sd</span>(x)<span class="co">#计算$T^o$</span></span>
+<span id="cb25-22"><a href="#cb25-22" tabindex="-1"></a>    p.val2[j]<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fu">abs</span>(T0[j]),n[i]<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb25-23"><a href="#cb25-23" tabindex="-1"></a>    <span class="cf">if</span>(p.val2[j]<span class="sc">&lt;=</span><span class="fl">0.05</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a>     flag2<span class="ot">&lt;-</span>flag2<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a>  }</span>
+<span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a>  Tie2[i]<span class="ot">&lt;-</span>flag2<span class="sc">/</span>m</span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a>  <span class="co">#3.指数分布Exponential(rate=1)</span></span>
+<span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb25-29"><a href="#cb25-29" tabindex="-1"></a>    x<span class="ot">&lt;-</span><span class="fu">rexp</span>(n[i],<span class="dv">1</span>)</span>
+<span id="cb25-30"><a href="#cb25-30" tabindex="-1"></a>    T0[j]<span class="ot">&lt;-</span>(<span class="fu">mean</span>(x)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="fu">sqrt</span>(n[i])<span class="sc">/</span><span class="fu">sd</span>(x)<span class="co">#计算$T^o$</span></span>
+<span id="cb25-31"><a href="#cb25-31" tabindex="-1"></a>    p.val3[j]<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fu">abs</span>(T0[j]),n[i]<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb25-32"><a href="#cb25-32" tabindex="-1"></a>    <span class="cf">if</span>(p.val3[j]<span class="sc">&lt;=</span><span class="fl">0.05</span>)</span>
+<span id="cb25-33"><a href="#cb25-33" tabindex="-1"></a>     flag3<span class="ot">&lt;-</span>flag3<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb25-34"><a href="#cb25-34" tabindex="-1"></a>  }</span>
+<span id="cb25-35"><a href="#cb25-35" tabindex="-1"></a>  Tie3[i]<span class="ot">&lt;-</span>flag3<span class="sc">/</span>m</span>
+<span id="cb25-36"><a href="#cb25-36" tabindex="-1"></a>}</span>
+<span id="cb25-37"><a href="#cb25-37" tabindex="-1"></a></span>
+<span id="cb25-38"><a href="#cb25-38" tabindex="-1"></a>Tie1</span></code></pre></div>
+<pre><code>## [1] 0.123 0.061 0.047</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>Tie2</span></code></pre></div>
+<pre><code>## [1] 0.052 0.055 0.056</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>Tie3</span></code></pre></div>
+<pre><code>## [1] 0.081 0.051 0.050</code></pre>
+<p>根据三次模拟结果可知，当样本量为1000时，卡方分布、均匀分布和指数分布模拟结果趋向于0.05.但是当样本量较小时，卡方分布和指数分布的第一类错误模拟值与显著性水平0.05差异较大。因此利用蒙特卡罗模拟研究当抽样总体是非正态时，t检验的经验I型错误率是否近似等于名义显著性水平α。以上三个分布是轻微偏离正态的，则说明t检验对于轻微偏离正态是稳健的。</p>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question</h2>
+<p><strong>补充题：</strong>在Stratified sampling中，我们有<span class="math display">\[\operatorname{Var}\left(\hat{\theta}^M\right)=\frac{1}{M
+k} \sum_{i=1}^k \sigma_i^2+\frac
+{\operatorname{Var}\left(\theta_I\right)}{M}=\operatorname{Var}\left(\hat{\theta}^S\right)+\frac
+{\operatorname{Var}\left(\theta_I\right)}{M}\]</span> where <span class="math display">\[\theta_i=E[g(U) \mid I=i],
+\sigma_i^2=\operatorname{Var}[g(U) \mid I=i]\]</span>and <span class="math inline">\(I\)</span> takes uniform distribution over <span class="math inline">\(\{1, \ldots, k\}\)</span>.<br />
+Proof that if g is a continuous function over (a, b), then <span class="math inline">\({Var}\left(\hat{\theta}^S\right) /
+{Var}\left(\hat{\theta}^M\right)\)</span> → 0 as <span class="math inline">\(b_i − a_i\)</span> → 0 for all i = 1, . . . ,
+k.</p>
+</div>
+<div id="answer-5" class="section level2">
+<h2>Answer</h2>
+<p>在分层估计下，估计量所对应的方差为<span class="math display">\[Var(\hat{\theta}^S)=\frac {1}{MK}\sum_{i=1}^k
+\sigma_i^2=\frac {1}{MK}\sum_{i=1}^kVar[g(u)|I=i]\]</span> 由于<span class="math inline">\(b_i-a_i→0\)</span>，代表做分层的时候，区间趋于无穷小。已知在目标函数为阶梯函数的时候，估计量对应的方差为0。这是因为<span class="math display">\[\hat\theta=\int_a^b
+g(x)dx=E(g(x)(b-a))=\sum_{i=1}^kg_i(b_i-a_i)\]</span>它是一个常数，因此对应的方差为<span class="math inline">\(Var(\hat\theta)=0.\)</span>同理，当每个区间的区间长度趋于无穷小时，可以近似的认为在区间<span class="math inline">\((a_i,b_i)\)</span>是取值趋于平稳的一个值，不妨令<span class="math inline">\(g_i(x)=g(a_i)\)</span>,即取左端点的值。则有<span class="math display">\[\hat\theta^{new}=\int_a^b
+g(x)dx=E(g(x)(b-a))=\sum_{i=1}^kg(a_i)(b_i-a_i)\]</span> 可知此时有<span class="math inline">\(Var(\hat\theta^{new})=0\)</span>，<br />
+又因为当<span class="math inline">\(b_i-a_i→0\)</span> 时，<span class="math inline">\(Var(\hat\theta^S)→Var(\hat\theta^{new})=0\)</span>,
+<span class="math inline">\({Var}\left(\hat{\theta}^M\right)\ne0\)</span>因此<span class="math inline">\({Var}\left(\hat{\theta}^S\right) /
+{Var}\left(\hat{\theta}^M\right)\)</span> → 0</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

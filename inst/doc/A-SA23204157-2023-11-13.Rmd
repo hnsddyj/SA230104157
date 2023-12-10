@@ -1,0 +1,160 @@
+---
+title: "Homework-2023.11.20"
+author: "丁婧琦"
+date: "2023-11-20"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## Question
+Exercise 2.1.3: Why do you need to use unlist() to convert a list to an atomic vector? Why doesn’t as.vector() work?
+
+## Answer
+1.unlist()函数用于将列表结构扁平化，从而将列表转换为原子向量。使用unlist()而不是as.vector()的原因与这些函数的行为有关。
+\
+使用unlist()函数可以把列表转换为单个的元素，因为在有些场合，我们是需要单个的元素，而不需要列表，因此这里采用unlist()函数的情形。
+\
+as.vector()函数是将矩阵数据转化为向量的情况,并不适用于将列表转化为单个向量的情形。总之，想要将列表扁平化为原子向量时，首选unlist()。如果在列表上使用as.vector()，它可能无法提供扁平原子向量的预期结果，特别是在处理嵌套列表时。
+
+
+## Question
+Exercise 2.3.1:
+\
+1. What does dim() return when applied to a vector?
+\
+2. If is.matrix(x) is TRUE, what will is.array(x) return?
+
+## Answer
+1.dim函数查看数据维度，如果是dataframe则可以得出数据有多少行多少列。如果是一个向量，比如a<-c(1:12),所对应的dim(a)是NULL。R中的向量不像矩阵或数组那样有维数。它们有长度属性，但没有维度属性
+\
+2.如果is.matrix(x)返回TRUE，则is.array(x)也将返回TRUE。这是因为矩阵是一种特殊形式的数组，它们有两个维度(行和列)。在R中，矩阵是一种特定类型的二维数组。因此，如果某个东西被识别为矩阵，它也被认为是一个数组，因为矩阵是作为数组的子集实现的。
+
+## Question
+Exercise 2.4.5:
+\
+2. What does as.matrix() do when applied to a data frame with columns of different types?
+\
+3. Can you have a data frame with 0 rows? What about 0 columns?
+
+## Answer
+2. 将as.matrix()函数应用于具有不同类型列的数据帧时，它会尝试将所有列强制转换为公共类型，然后创建一个矩阵。生成的矩阵将具有一个可以容纳所有原始列类型的公共数据类型。强制转换遵循数据类型的层次结构，比如字符被认为是最灵活可转换的类型。
+\
+3.可以使用data.frame()函数并指定列名创建包含0行的数据帧，即使没有要填充的数据。可以创建指定列数的空数据框，可以产生一个0行的数据框或者0列的数据框。通过填充行再删除行生成空数据框，或者通过创建空矩阵转换成空数据框等方法。
+
+## Question
+Exercise2:
+\
+The function below scales a vector so it falls in the range [0,1]. How would you apply it to every column of a data frame?How would you apply it to every numeric column in a data frame?
+\
+scale01 <- function(x) {
+\
+rng <- range(x, na.rm = TRUE)
+\
+(x - rng[1]) / (rng[2] - rng[1])}
+
+## Answer
+scale 函数是针对于一维的向量，如果要运用到dataframe上面去，则可以采用apply函数。
+apply函数的用法是apply(X, MARGIN, FUN, ...),X为对应的dataframe,MARGIN=1时代表按行，MARGIN=2是代表按列。FUN为自定义的调用函数。因此，如果要运用到行上面可以采用语句apply(X,1,scale01(X)),如果运用到列上可以采用语句apply(X,2,scale01(X))。
+
+## Question
+Exercise1: Use vapply() to:
+\
+a) Compute the standard deviation of every column in a numeric data frame.
+\
+b) Compute the standard deviation of every numeric column in a mixed data frame. 
+\
+(Hint: you’ll need to use vapply() twice.)
+
+## Answer
+```{r}
+# 数值型数据的dataframe
+numeric_df <- data.frame(
+  A = c(1, 2, 3, 4),
+  B = c(5, 6, 7, 8),
+  C = c(9, 10, 11, 12)
+)
+# 用于计算单个向量的标准差的函数
+compute_sd <- function(x) {
+  sd(x)
+}
+# (a) Compute the standard deviation of every column in a numeric data frame
+result_a <- vapply(numeric_df, compute_sd, numeric(1))
+print(result_a)
+
+# 混合数据的dataframe
+mixed_df <- data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 22),
+  Score = c(95, 88, 75)
+)
+
+# (b) Compute the standard deviation of every numeric column in a mixed data frame
+numeric_columns <- sapply(mixed_df, is.numeric)
+result_b <- vapply(mixed_df[numeric_columns], compute_sd, numeric(1))
+print(result_b)
+```
+在这个例子中，(a)vapply() 是用来compute_sd 各栏的功能numeric_df 数据框架,它返回一个数字向量,其中包含每个列的标准偏差。
+(b)sapply() 用于识别混合数据框中的数字列(mixed_df ),然后vapply() 用于计算每个数字列的标准差。
+
+## Question
+Consider Exercise 9.8 (pages 278, Statistical Computing with R).(Hint: Refer to the first example of Case studies section)
+\
+• Write an R function.
+\
+• Write an Rcpp function.
+\
+• Compare the computation time of the two functions with the function “microbenchmark”.
+
+## Answer
+Exercise 9.8:This example appears in [40]. Consider the bivariate density$$f(x,y)\propto{C_{n}^{x}y^{x+a-1}(1-y)^{n-x+b-1},x=0,1,…,n,0\leq{y}\leq{1}}$$It can be shown (see e.g. [23]) that for fixed $a,b,n$, the conditional distributions are $Binomial(n,y)$ and $Beta(x+a,n-x+b)$. Use the Gibbs sampler to generate a chain with target joint density f(x,y).
+
+```{r}
+set.seed(1234)
+library(Rcpp)
+library(microbenchmark)
+#编写一个r函数
+a <- 2
+b <- 2
+n <- 10
+gxfunc<-function(m,N){
+  GbN<-N
+  gx<-matrix(0,ncol=GbN,nrow=2)
+  gx[,1]<-m
+  for(i in 2:GbN){
+  x<-gx[,i-1][1]
+  gx[,i][2]<-rbeta(1,shape1=x+a,shape2=n-x+b)
+  y<-gx[,i][2]
+  gx[,i][1]<-rbinom(1,size=n,prob=y)
+}
+  return(gx)
+}
+gxm <- c(1,0.1)
+gx_r <- gxfunc(gxm,1000)
+
+#编写一个rcpp函数
+cppFunction(
+'NumericMatrix mygibbs(double x,double y,int N) {
+  NumericMatrix gx(2,N);
+  int n=10,a=2,b=2;
+  gx(0,0)=x;
+  gx(1,0)=y;  
+  for(int i=1;i<N;i++){
+    double x0=gx(0,i-1);
+    gx(1,i)=rbeta(1,x0+a,n-x0+b)[0];
+    double y0=gx(1,i);
+    gx(0,i)=rbinom(1,n,y0)[0];
+  }
+  return gx;
+}')
+gx_Rcpp<-mygibbs(1,0.1,1000)
+
+#比较两个函数的计算时间
+Time <- microbenchmark(Gibbs1=mygibbs(1,0.1,1000),Gibbs2=gxfunc(gxm,1000))
+summary(Time)[,c(1,3,5,6)]
+
+```
+从结果可以看出，是用Rcpp函数，计算时间比使用R函数计算时间短。

@@ -1,0 +1,108 @@
+---
+title: "Homework-2023.09.25"
+author: "丁婧琦"
+date: "2023-09-25"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question
+\
+**5.6:In Example 5.7 the control variate approach was illustrated for Monte Carlo integration of $$θ=\int_{0}^{1} e^xdx.$$Now consider the antithetic variate approach. Compute Cov($e^U$ , $e^{1−U}$ ) and Var($e^U$ + $e^{1−U}$), where U ∼ Uniform(0,1). What is the percent reduction invariance of $\hat{θ}$ that can be achieved using antithetic variates (compared with simple MC)?**
+\
+## Answer
+\
+由题可知，对偶变量为$1-U$,由于 U ∼ Uniform(0,1)，因此1-U ∼ Uniform(0,1)。可得Var($e^U$ + $e^{1−U}$)为：
+$$Var((e^U+e^{1-U})/2)=Var(e^U)/4+Var(e^{1-U})/4+Cov(e^U,e^{1-U})/2$$
+其中，$Var(e^U)=Var(e^{1-U})$,因此可得：$$Var(e^U)=E(e^{2U})-(E(e^U))^2=\int_0^1 e^{2x}dx-(\int_0^1e^{x}dx)^2=0.2420$$
+$$Cov(e^U,e^{1-U})=E(e^{U+1-U)})-E(e^U)E(e^{1-U})=e-\int_0^1e^xdx \int_0^1e^{1-x}dx=-0.2342$$
+所以$$Var((e^U+e^{1-U})/2)=0.0039$$
+\
+因此，可以得出用对偶变量法比用普通的MC方法估计所减少的方差为$$1-Var((e^U+e^{1-U})/2)/Var(e^U)=1-0.0039/0.2420=98.39\%$$
+\
+## Question
+\
+**5.7:Refer to Exercise 5.6. Use a Monte Carlo simulation to estimate θ by the antithetic variate approach and by the simple Monte Carlo method. Compute an empirical estimate of the percent reduction in variance using the antithetic variate. Compare the result with the theoretical value from Exercise 5.6.**
+\
+## Answer
+\
+1.采用蒙特卡罗模拟的方法来估算$\hat{\theta}$,蒙特卡罗模拟的计算原理如下：
+$$\hat{\theta}_1 = \frac 1m\sum\limits_{i=1}^{m}e^{X_{i}},\quad X_{i}\sim U(0,1).$$
+```{r}
+set.seed(1234)
+m <- 2e5
+x1 <- runif(m)
+theta_hat_1 <- exp(x1)
+```
+
+2.采用对偶变量法来估算$\hat{\theta}$，对偶变量估计的计算原理如下：
+$$\hat\theta_2 = \frac{1}{m}\sum\limits_{i=1}^{m/2}(e^{X_{i}}+e^{1-X_{i}}),\quad X_{i}\sim U(0,1).$$
+
+```{r}
+set.seed(123)
+m <- 2e5
+x2 <- runif(m);
+theta_hat_2 <- (exp(x2) + exp(1-x2)) / 2
+```
+
+用对偶变量进行估算与蒙特卡罗模拟进行计算，估算方差减少的百分比如下：
+```{r}
+a <- 1-var(theta_hat_2) / var(theta_hat_1)
+a
+```
+0.0.9838564与5.6中理论计算出的减小的方差百分比 $1-0.0039/0.2420=98.39\%$ 相差很小,说明理论计算出的和计算机运行的方差减少百分比没有较大区别。
+\
+## Question
+\
+**习题1：Proof that what value ρ = $\frac ld$should take to minimize the asymptotic variance of $\hat{\pi}$? (m ∼ B(n, p),using δ method)**
+\
+## Answer
+\
+\Delta 方法是基于泰勒展开式，用近似的方法求随机变量函数的方差的一种方法。对于随机变量$Y=Y(x)$,它的方差近似为D(Y) ≈ $[Y′(µ)]^2σ^2.$
+\
+由蒲丰投针可知， π 的一个估计可以通过计算$\frac nm =\frac {2l}{dπ}$得出，其中m为试验次数，n为相交次数。可以得出$\hat{\pi}$的表达式为：$$\hat{\pi}=\frac {2mρ}{n}$$
+用$\delta$方法求$\hat{\pi}$的渐进方差。
+\
+假设ρ为定值，由于n∼B(m,p)，根据蒲丰投针的原理$p=\frac {2ρ}{\pi}$。
+因此$$E(n)=np=\frac {2ρm}{\pi}$$,$$D(n)=mp(1-p)=\frac {2ρm}{\pi}(1-\frac{2ρ}{\pi})$$
+由$\delta$方法可求解$\hat{\pi}$的渐进方差$D(\hat{\pi})$的公式如下：$$D(\hat{\pi})=(\frac {2ρm}{(mp)^2})^2D(n)=(\frac {2ρ}{mp^2})^2\frac {2ρm}{\pi}(1-\frac{2ρ}{\pi})=\frac{\pi^3-2ρ\pi^2}{2mρ}$$
+此时，可将$D(\hat{\pi})$的表达式中的ρ看成是变量，对其求导可得：$$\frac {dD(\hat{\pi})}{dρ}=-\frac{\piρ^3}{2mρ^2}$$，因此可知$D(\hat{\pi})$的一阶导数小于0，说明$D(\hat{\pi})$是单调低减的。因此，$D(\hat{\pi})$的极值在ρ的边界上取得，即ρ=1时使得渐进方差最小。
+\
+## Question
+\
+**习题2：Take three different values of ρ ($0 \le ρ \le 1$, including $ρ_{min}$) and use Monte Carlo simulation to verify your answer. (n = $10^6$, Number of repeated simulations K = 100)**
+\
+## Answer
+\
+根据$ρ_{min}=1$，选取$ρ_1=0.3，ρ_2=0.6$，利用蒙特卡罗的方法对其进行模拟：
+```{r}
+#编写一个函数来求不同ρ下的方差，这里不妨设d=1
+my.simulation <- function(a){
+set.seed(12345)
+l <- a
+d<- 1
+m <- 1e6
+j <- 1
+k<- 100
+pihat<-numeric(k)
+while(j<=k)
+{X <- runif(m,0,d/2)
+Y <- runif(m,0,pi/2)
+pihat[j] <- 2*l/d/mean(l/2*sin(Y)>X)
+j <-j+1
+}
+return(var(pihat))
+}
+##求ρ=0.3、0.6和1的情况
+my.simulation(0.3)
+my.simulation(0.6)
+my.simulation(1)
+```
+从模拟的结果可以看出，当ρ=1，比ρ=0.3和ρ=0.6，它的渐进方差更小。这也与习题1中的$ρ_{min}=1$的结论相符合。

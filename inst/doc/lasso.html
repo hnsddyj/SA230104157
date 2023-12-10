@@ -376,27 +376,32 @@ generate.</p>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## Loaded glmnet 4.1-8</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(ncvreg)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>lasso_flag1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>lasso_result1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>xtrue<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fl">2.5</span><span class="sc">*</span><span class="fu">floor</span>(n<span class="sc">/</span><span class="fu">log</span>(n))</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k){</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="fu">rep</span>(<span class="dv">0</span>,(p<span class="dv">-3</span>)))</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,p))</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>,p<span class="sc">*</span>p)), <span class="at">nrow=</span>p, <span class="at">ncol=</span>p)<span class="sc">+</span><span class="fu">diag</span>(p)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>rho)</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n, mean, sigma)</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">%*%</span>beta<span class="sc">+</span><span class="fu">rnorm</span>(n)</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>  <span class="co">#lasso回归</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>  lasso_flag1 <span class="ot">&lt;-</span> lasso_flag1<span class="sc">+</span><span class="fu">Lasso</span>(x,y,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))<span class="sc">$</span>lasso_flag</span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>}</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>lasso_result1 <span class="ot">&lt;-</span> lasso_flag1<span class="sc">/</span>k</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>lasso_result1</span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:DAAG&#39;:
+## 
+##     hills</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>lasso_flag1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>lasso_result1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>xtrue<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fl">2.5</span><span class="sc">*</span><span class="fu">floor</span>(n<span class="sc">/</span><span class="fu">log</span>(n))</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k){</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="fu">rep</span>(<span class="dv">0</span>,(p<span class="dv">-3</span>)))</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,p))</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fl">0.5</span>,p<span class="sc">*</span>p)), <span class="at">nrow=</span>p, <span class="at">ncol=</span>p)<span class="sc">+</span><span class="fu">diag</span>(p)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>rho)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n, mean, sigma)</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">%*%</span>beta<span class="sc">+</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  <span class="co">#lasso回归</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  lasso_flag1 <span class="ot">&lt;-</span> lasso_flag1<span class="sc">+</span><span class="fu">Lasso</span>(x,y,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))<span class="sc">$</span>lasso_flag</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>}</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>lasso_result1 <span class="ot">&lt;-</span> lasso_flag1<span class="sc">/</span>k</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>lasso_result1</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 
